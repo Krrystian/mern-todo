@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 var UserSchema = new mongoose.Schema(
   {
-    UserName: {
+    userName: {
       type: String,
       required: true,
     },

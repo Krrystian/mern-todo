@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import Input from "./Input";
-import { loadingOpen } from "../state/modal";
+import { loadingClose, loadingOpen } from "../state/modal";
+import { setCredentials } from "../state/user";
 
 interface LoginProps {
   setRegister: (value: boolean) => void;
@@ -10,9 +11,23 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ setRegister }) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: Event) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    dispatch(loadingOpen);
+    dispatch(loadingOpen());
+    const { email, password } = e.target.elements;
+    const response = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      dispatch(loadingClose());
+    }
   };
 
   const handleRegister = useCallback(() => {
@@ -23,7 +38,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
       <h1 className="text-4xl cursor-default">Login</h1>
       <form
         className="flex justify-center flex-col"
-        onSubmit={() => handleSubmit}
+        onSubmit={handleSubmit}
         method="post"
       >
         <Input name="email" type="email" label="Email" required />

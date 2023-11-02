@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import modal from "./state/modal";
+import user from "./state/user";
 
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {
   persistStore,
@@ -21,7 +22,11 @@ import { PersistGate } from "redux-persist/integration/react";
 
 const persistConfig = { key: "root", storage, version: 1 };
 
-const persistedReducer = persistReducer(persistConfig, modal);
+const reducers = combineReducers({
+  modal,
+  user,
+});
+const persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {

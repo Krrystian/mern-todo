@@ -1,20 +1,42 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import { useCallback } from "react";
+import { loadingClose, loadingOpen } from "../state/modal";
+import { useDispatch } from "react-redux";
 
 interface RegisterProps {
   setLogin: (value: boolean) => void;
 }
 
-const handleSubmit = (e: any) => {
-  e.preventDefault();
-  const { email, username, password, password2 } = e.target.elements;
-  console.log(email.value, username.value, password.value, password2.value);
-};
 const Register: React.FC<RegisterProps> = ({ setLogin }) => {
+  const dispatch = useDispatch();
+
   const handleLogin = useCallback(() => {
     setLogin(false);
   }, [setLogin]);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const { email, username, password, password2 } = e.target.elements;
+    dispatch(loadingOpen());
+    if (password.value !== password2.value) {
+      return alert("Passwords don't match"); //tostify replacement later
+    }
+    const response = await fetch("http://localhost:5000/user/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email.value,
+        username: username.value,
+        password: password.value,
+      }),
+    });
+    if (response.ok) {
+      alert("Account created! Please login");
+      dispatch(loadingClose());
+      window.location.reload();
+    }
+  };
 
   return (
     <>

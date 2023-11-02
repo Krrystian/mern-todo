@@ -4,9 +4,12 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import User from "./models/User.js";
-import Todo from "./models/Todo.js";
-import TodoElement from "./models/TodoElement.js";
+import cookieParser from "cookie-parser";
+import authRoute from "./routes/auth.js";
+import userRoute from "./routes/user.js";
+// import User from "./models/User.js";
+// import Todo from "./models/Todo.js";
+// import TodoElement from "./models/TodoElement.js";
 
 dotenv.config();
 const app = express();
@@ -15,6 +18,11 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
 app.use(cors());
+app.use(cookieParser());
+
+// Routes
+app.use("/", authRoute);
+app.use("/user", userRoute);
 
 // Models
 
