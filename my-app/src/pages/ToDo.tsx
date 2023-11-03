@@ -3,44 +3,46 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, updateToken } from "../state/user";
 
 const ToDo = () => {
-  const token = useSelector((state: any) => state.user.token);
   const dispatch = useDispatch();
-
-  const showUser = async () => {
-    const response = await fetch("http://localhost:5000/verify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.status === 403) {
-      const refreshResponse = await fetch("http://localhost:5000/refresh", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-      });
-      if (refreshResponse.ok) {
-        const data = await refreshResponse.json(); //DISPATCH NIE DZIALA
+  const token = useSelector((state: any) => state.user.token);
+  const header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  const refreshAndDispatchToken = async () => {
+    await fetch("http://localhost:5000/refresh", {
+      method: "GET",
+      headers: header,
+      credentials: "include",
+    }).then(async (res) => {
+      if (res.ok) {
+        const data = await res.json();
         dispatch(updateToken({ token: data.token }));
       } else {
         dispatch(setCredentials({ token: "", email: "", username: "" }));
       }
+    });
+  };
+
+  const isUser = async () => {
+    const response = await fetch("http://localhost:5000/verify", {
+      method: "POST",
+      headers: header,
+    });
+    if (response.status === 403) {
+      await refreshAndDispatchToken();
     } else if (!response.ok) {
       dispatch(setCredentials({ token: "", email: "", username: "" }));
     }
   };
 
   useEffect(() => {
-    showUser();
-    const intervalId = setInterval(showUser, 1000 * 10);
+    isUser();
+    const intervalId = setInterval(isUser, 1000 * 60 * 15);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [token]);
 
-  return token ? <div>You're here.</div> : <div>You're not here.</div>;
+  return token ? <div>You're here. {token}</div> : <div>You're not here.</div>;
 };
 
 export default ToDo;
