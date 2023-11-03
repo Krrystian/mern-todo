@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ToDo from "./pages/ToDo";
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/todo" element={<HomePage />} /> */}
+          <Route path="/todo" element={<ToDo />} />
           {/* <Route path="/profile/:userId" element={<ProfilePage />} /> */}
         </Routes>
       </BrowserRouter>

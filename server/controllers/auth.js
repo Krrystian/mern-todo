@@ -19,19 +19,19 @@ export const login = async (req, res) => {
   const accessToken = jwt.sign(
     {
       UserInfo: {
-        username: user.UserName,
+        username: user.userName,
         email: user.email,
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "15m",
+      expiresIn: "1m",
     }
   );
   const refreshToken = jwt.sign(
     {
       UserInfo: {
-        username: user.UserName,
+        username: user.userName,
       },
     },
     process.env.REFRESH_TOKEN_SECRET,
@@ -47,7 +47,9 @@ export const login = async (req, res) => {
     path: "/api/refresh", //Cookie will be refreshed when visiting
   });
 
-  res.status(200).json({ accessToken: accessToken });
+  res
+    .status(200)
+    .json({ token: accessToken, username: user.userName, email: user.email });
 };
 export const refresh = async (req, res) => {
   const cookies = req.cookies;
@@ -69,16 +71,18 @@ export const refresh = async (req, res) => {
       const accessToken = jwt.sign(
         {
           UserInfo: {
-            username: foundUser.username,
+            username: foundUser.userName,
             email: foundUser.email,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn: "15m",
+          expiresIn: "1m",
         }
       );
-      res.status(200).json({ accessToken: accessToken });
+      res.status(200).json({
+        token: accessToken,
+      });
     }
   );
 };

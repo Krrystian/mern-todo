@@ -7,6 +7,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
+import verifyToken from "./controllers/verifyToken.js";
 // import User from "./models/User.js";
 // import Todo from "./models/Todo.js";
 // import TodoElement from "./models/TodoElement.js";
@@ -17,13 +18,18 @@ app.use(express.json());
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
-app.use(cors());
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
+app.post("/verify", verifyToken);
 // Routes
 app.use("/", authRoute);
 app.use("/user", userRoute);
-
 // Models
 
 // DB Config

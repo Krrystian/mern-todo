@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { loadingOpen, loadingClose } from "../state/modal";
+import { loadingClose } from "../state/modal";
 const Home = () => {
   const [register, setRegister] = useState(false);
   const dispatch = useDispatch();

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import Input from "./Input";
 import { loadingClose, loadingOpen } from "../state/modal";
 import { setCredentials } from "../state/user";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   setRegister: (value: boolean) => void;
@@ -10,6 +11,7 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ setRegister }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,8 +27,9 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      dispatch(setCredentials(data));
       dispatch(loadingClose());
+      navigate("/todo");
     }
   };
 
