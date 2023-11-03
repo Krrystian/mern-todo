@@ -5,16 +5,16 @@ import User from "../models/User.js";
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400).json({ message: "Missing email or password" });
+    return res.status(400).json({ message: "Missing email or password" });
   }
 
   const user = await User.findOne({ email: email });
   if (!user) {
-    res.status(401).json({ message: "Something went wrong" });
+    return res.status(401).json({ message: "Something went wrong" });
   }
   const matchPasswd = await bcrypt.compare(password, user.password);
   if (!matchPasswd) {
-    res.status(401).json({ message: "Something went wrong" });
+    return res.status(401).json({ message: "Something went wrong" });
   }
   const accessToken = jwt.sign(
     {
@@ -25,13 +25,13 @@ export const login = async (req, res) => {
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "1m",
+      expiresIn: "1m", //change
     }
   );
   const refreshToken = jwt.sign(
     {
       UserInfo: {
-        username: user.userName,
+        email: user.email,
       },
     },
     process.env.REFRESH_TOKEN_SECRET,
@@ -41,32 +41,32 @@ export const login = async (req, res) => {
   );
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    sameSite: "none",
+    sameSite: "None",
     secure: true,
-    expiresIn: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    path: "/api/refresh", //Cookie will be refreshed when visiting
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: "/",
   });
-
   res
     .status(200)
     .json({ token: accessToken, username: user.userName, email: user.email });
 };
+
 export const refresh = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies.refreshToken) {
-    res.status(401).json({ message: "Something went wrong" });
+    return res.status(401).json({ message: "refreshToken not found" });
   }
   jwt.verify(
     cookies.refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
       if (err) {
-        return res.status(401).json({ message: "Something went wrong" });
+        return res.status(401).json({ message: "Refresh token Invalid." });
       }
 
-      const foundUser = await User.findOne({ username: decoded.username });
+      const foundUser = await User.findOne({ email: decoded.UserInfo.email });
       if (!foundUser)
-        return res.status(401).json({ message: "Something went wrong" });
+        return res.status(401).json({ message: "User not found." });
 
       const accessToken = jwt.sign(
         {
@@ -77,10 +77,10 @@ export const refresh = async (req, res) => {
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn: "1m",
+          expiresIn: "1m", //change
         }
       );
-      res.status(200).json({
+      return res.status(200).json({
         token: accessToken,
       });
     }

@@ -13,7 +13,7 @@ const initialState: CounterState = {
 };
 
 export const userSlice = createSlice({
-  name: "modals",
+  name: "auth",
   initialState,
   reducers: {
     setCredentials: (state, action) => {
@@ -21,8 +21,11 @@ export const userSlice = createSlice({
       state.username = action.payload.username;
       state.token = action.payload.token;
     },
+    updateToken: (state, action) => {
+      state.token = action.payload.token;
+    },
   },
 });
 
-export const { setCredentials } = userSlice.actions;
+export const { setCredentials, updateToken } = userSlice.actions;
 export default userSlice.reducer;
