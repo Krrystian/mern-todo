@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, updateToken } from "../state/user";
+import Navbar from "../components/Navbar";
 
 const ToDo = () => {
   const dispatch = useDispatch();
@@ -38,11 +39,18 @@ const ToDo = () => {
 
   useEffect(() => {
     isUser();
-    const intervalId = setInterval(isUser, 1000 * 60 * 15);
+    const intervalId = setInterval(isUser, 1000 * 60 * 1);
     return () => clearInterval(intervalId);
   }, [token]);
 
-  return token ? <div>You're here. {token}</div> : <div>You're not here.</div>;
+  return token ? (
+    <div className="overflow-x-hidden h-screen w-screen">
+      <p>{token}</p>
+      <Navbar />
+    </div>
+  ) : (
+    <div>You're not here.</div>
+  );
 };
 
 export default ToDo;
