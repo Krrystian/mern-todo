@@ -16,7 +16,8 @@ const Home = () => {
     if (user.token) {
       navigate("/todo");
     }
-  }, []);
+  }, [navigate, user.token]);
+
   return (
     <section className=" bg-blue-950 w-screen h-screen flex justify-center items-center">
       <div className="w-full md:w-3/5 xl:w-2/5 h-3/5  bg-white rounded-xl shadow-2xl shadow-black flex flex-col items-center justify-center">

@@ -8,9 +8,7 @@ import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import verifyToken from "./controllers/verifyToken.js";
-// import User from "./models/User.js";
-// import Todo from "./models/Todo.js";
-// import TodoElement from "./models/TodoElement.js";
+import todoRoute from "./routes/todo.js";
 
 dotenv.config();
 const app = express();
@@ -30,7 +28,7 @@ app.post("/verify", verifyToken);
 // Routes
 app.use("/", authRoute);
 app.use("/user", userRoute);
-// Models
+app.use("/todo", todoRoute);
 
 // DB Config
 mongoose

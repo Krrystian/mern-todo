@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, updateToken } from "../state/user";
 import Navbar from "../components/Navbar";
+import TodoList from "../components/TodoList";
+import NewTodo from "../components/modals/NewTodo";
 
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
+  const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
   const header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
@@ -30,7 +33,7 @@ const ToDo = () => {
       method: "POST",
       headers: header,
     });
-    if (response.status === 403) {
+    if (response.status === 403 || response.ok) {
       await refreshAndDispatchToken();
     } else if (!response.ok) {
       dispatch(setCredentials({ token: "", email: "", username: "" }));
@@ -39,14 +42,15 @@ const ToDo = () => {
 
   useEffect(() => {
     isUser();
-    const intervalId = setInterval(isUser, 1000 * 60 * 1);
+    const intervalId = setInterval(isUser, 1000 * 60 * 5);
     return () => clearInterval(intervalId);
   }, [token]);
 
   return token ? (
-    <div className="overflow-x-hidden h-screen w-screen">
-      <p>{token}</p>
+    <div className="overflow-hidden h-screen w-screen">
+      {newTodo && <NewTodo />}
       <Navbar />
+      <TodoList />
     </div>
   ) : (
     <div>You're not here.</div>

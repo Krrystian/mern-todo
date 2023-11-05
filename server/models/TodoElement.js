@@ -14,4 +14,5 @@ const TodoElementSchema = new mongoose.Schema(
 );
 
 const TodoElement = mongoose.model("TodoElement", TodoElementSchema);
+
 export default TodoElement;

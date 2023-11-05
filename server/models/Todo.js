@@ -6,25 +6,22 @@ var TodoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    completed: {
-      type: mongoose.Schema.Types.ObjectId,
-      default: [],
-      ref: "TodoElement",
+    password: {
+      type: String,
+      default: "",
     },
-    uncompleted: {
-      type: mongoose.Schema.Types.ObjectId,
-      default: [],
-      ref: "TodoElement",
-    },
-    inProgress: {
-      type: mongoose.Schema.Types.ObjectId,
-      default: [],
-      ref: "TodoElement",
-    },
-    users: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    completed: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
+    uncompleted: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
   },
   { timestamps: true }
 );

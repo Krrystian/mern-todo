@@ -25,7 +25,7 @@ export const login = async (req, res) => {
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "1m", //change
+      expiresIn: "15m", //change
     }
   );
   const refreshToken = jwt.sign(
@@ -46,9 +46,12 @@ export const login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: "/",
   });
-  res
-    .status(200)
-    .json({ token: accessToken, username: user.userName, email: user.email });
+  res.status(200).json({
+    token: accessToken,
+    username: user.userName,
+    email: user.email,
+    id: user._id,
+  });
 };
 
 export const refresh = async (req, res) => {
@@ -77,7 +80,7 @@ export const refresh = async (req, res) => {
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-          expiresIn: "1m", //change
+          expiresIn: "15m", //change
         }
       );
       return res.status(200).json({

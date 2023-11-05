@@ -3,7 +3,6 @@ import User from "../models/User.js";
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
-  //find one where email or username is equal to email or username
   const duplicate = await User.findOne({
     $or: [{ email: email }, { username: username }],
   });
