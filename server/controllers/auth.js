@@ -41,8 +41,8 @@ export const login = async (req, res) => {
   );
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    sameSite: "None",
-    secure: true,
+    sameSite: "none",
+    secure: true, // for safari false!!
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: "/",
   });

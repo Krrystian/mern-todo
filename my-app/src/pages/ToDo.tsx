@@ -10,10 +10,10 @@ import TaskList from "../components/TaskList";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
-  const temp = useSelector((state: any) => state.modal.newTodo);
   const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
   const header = {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": "true",
     Authorization: `Bearer ${token}`,
   };
   const refreshAndDispatchToken = async () => {
@@ -35,11 +35,12 @@ const ToDo = () => {
     const response = await fetch("http://localhost:5000/verify", {
       method: "POST",
       headers: header,
+      credentials: "include",
     });
     if (response.status === 403 || response.ok) {
       await refreshAndDispatchToken();
     } else if (!response.ok) {
-      dispatch(setCredentials({ token: "", email: "", username: "" }));
+      //dispatch(setCredentials({ token: "", email: "", username: "" }));
     }
   };
 

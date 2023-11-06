@@ -82,7 +82,7 @@ const TodoList = () => {
                   dispatch(setTodo(todo));
                 }}
               >
-                <h2 className="text-center self-center text-2xl">
+                <h2 className="text-center self-center text-2xl max-w-[40%] text-ellipsis whitespace-nowrap overflow-hidden">
                   {todo.title}
                 </h2>
                 <div className="text-sm xl:text-md">
