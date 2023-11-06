@@ -10,6 +10,7 @@ import TaskList from "../components/TaskList";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
+  const temp = useSelector((state: any) => state.modal.newTodo);
   const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
   const header = {
     "Content-Type": "application/json",
