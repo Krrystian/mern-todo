@@ -4,6 +4,8 @@ import { setCredentials, updateToken } from "../state/user";
 import Navbar from "../components/Navbar";
 import TodoList from "../components/TodoList";
 import NewTodo from "../components/modals/NewTodo";
+import TodoBar from "../components/TodoBar";
+import TaskList from "../components/TaskList";
 
 const ToDo = () => {
   const dispatch = useDispatch();
@@ -50,7 +52,13 @@ const ToDo = () => {
     <div className="overflow-hidden h-screen w-screen">
       {newTodo && <NewTodo />}
       <Navbar />
-      <TodoList />
+      <div className="flex w-full h-full">
+        <TodoList />
+        <div className="flex flex-col w-full h-full">
+          <TodoBar />
+          <TaskList />
+        </div>
+      </div>
     </div>
   ) : (
     <div>You're not here.</div>

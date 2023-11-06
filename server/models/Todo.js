@@ -10,6 +10,10 @@ var TodoSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
     completed: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,6 +21,12 @@ var TodoSchema = new mongoose.Schema(
       },
     ],
     uncompleted: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
+    inProgress: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Task",

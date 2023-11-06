@@ -5,7 +5,8 @@ interface CounterState {
   email: string;
   username: string;
   token: string;
-  todoList: [];
+  todoList: any[];
+  todo: any;
 }
 
 const initialState: CounterState = {
@@ -14,6 +15,7 @@ const initialState: CounterState = {
   username: "",
   token: "",
   todoList: [],
+  todo: "",
 };
 
 export const userSlice = createSlice({
@@ -32,8 +34,26 @@ export const userSlice = createSlice({
     setTodos: (state, action) => {
       state.todoList = action.payload.todos;
     },
+    updateTodos: (state, action) => {
+      state.todoList = [...state.todoList, action.payload];
+    },
+    setTodo: (state, action) => {
+      state.todo = action.payload;
+    },
+    deleteTodo: (state, action) => {
+      state.todoList = state.todoList.filter(
+        (todo) => todo.id !== action.payload.id
+      );
+    },
   },
 });
 
-export const { setCredentials, updateToken, setTodos } = userSlice.actions;
+export const {
+  setCredentials,
+  updateToken,
+  setTodos,
+  updateTodos,
+  setTodo,
+  deleteTodo,
+} = userSlice.actions;
 export default userSlice.reducer;

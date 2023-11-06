@@ -5,11 +5,12 @@ import User from "../models/User.js";
 export const newTodoList = async (req, res) => {
   try {
     const { title, password, id } = req.body;
+    let passwordHash = "";
     if (!title) {
       return res.status(400).json({ message: "Title is required" });
     }
     if (password) {
-      password = await bcrypt.hash(password, 10);
+      passwordHash = await bcrypt.hash(password, 10);
     }
     const user = await User.findOne({ _id: id });
     if (!user) {
@@ -17,12 +18,18 @@ export const newTodoList = async (req, res) => {
     }
     const todoList = new TodoList({
       title,
-      password,
+      password: passwordHash,
     });
     await todoList.save();
     user.todos.push(todoList);
     await user.save();
-    return res.status(201).json({ title: todoList.title, id: todoList._id });
+    const sterilizedTodoList = {
+      title: todoList.title,
+      _id: todoList._id,
+      completed: todoList.completed,
+      uncompleted: todoList.uncompleted,
+    };
+    return res.status(201).json(sterilizedTodoList);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -33,9 +40,25 @@ export const getTodoList = async (req, res) => {
     const { id } = req.query;
     const user = await User.findOne({ _id: id }).populate({
       path: "todos",
-      select: "-password",
+      match: { active: true },
+      select: "-password -active -__v -createdAt -updatedAt",
     });
     return res.status(200).json({ todos: user.todos });
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+
+export const removeTodoList = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const todoList = await TodoList.findOne({ _id: id });
+    if (!todoList) {
+      return res.status(404).json({ message: "Todo list not found" });
+    }
+    todoList.active = false;
+    await todoList.save();
+    return res.status(200).json({ message: "Todo list removed" });
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }

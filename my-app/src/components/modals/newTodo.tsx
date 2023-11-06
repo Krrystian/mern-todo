@@ -1,6 +1,6 @@
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { setTodos } from "../../state/user";
+import { updateTodos } from "../../state/user";
 import { newTodoClose } from "../../state/modal";
 
 const NewTodo = () => {
@@ -26,7 +26,8 @@ const NewTodo = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      dispatch(setTodos(data));
+      dispatch(updateTodos(data));
+      dispatch(newTodoClose());
     }
   };
 

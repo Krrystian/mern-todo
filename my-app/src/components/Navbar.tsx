@@ -8,6 +8,7 @@ import { setCredentials } from "../state/user";
 
 const Navbar = () => {
   const user = useSelector((state: any) => state.user);
+  const todoName = useSelector((state: any) => state.user.todo.title);
   const dispatch = useDispatch();
   const [menu, isMenu] = useState<boolean>(false);
   const [hamburger, isHamburger] = useState<boolean>(false);
@@ -27,13 +28,18 @@ const Navbar = () => {
     }
   };
   return (
-    <section className="w-full h-[6%] flex items-center gap-1 justify-between md:justify-end px-10 border-b-2 relative">
+    <section className="w-full h-[6%] flex items-center gap-1 justify-between lg:justify-end px-5 border-b-2 relative">
       <div
-        className="cursor-pointer border md:hidden"
+        className="cursor-pointer lg:hidden"
         onClick={() => isHamburger((prev) => !prev)}
       >
-        {hamburger ? <GrClose size={20} /> : <GiHamburgerMenu size={20} />}
+        {hamburger ? <GrClose size={25} /> : <GiHamburgerMenu size={25} />}
       </div>
+      {todoName && (
+        <div className="text-xl font-bold select-none cursor-default text-green-700 lg:hidden">
+          {todoName}
+        </div>
+      )}
       <div className="flex gap-2 justify-center select-none">
         <h1
           className="text-2xl font-bold cursor-pointer"
