@@ -10,6 +10,9 @@ interface CounterState {
   joinNewTodo: {
     isOpen: boolean;
   };
+  sharing: {
+    isOpen: boolean;
+  };
 }
 
 const initialState: CounterState = {
@@ -20,6 +23,9 @@ const initialState: CounterState = {
     isOpen: false,
   },
   joinNewTodo: {
+    isOpen: false,
+  },
+  sharing: {
     isOpen: false,
   },
 };
@@ -46,6 +52,12 @@ export const modelSlice = createSlice({
     newTodoJoinClose: (state) => {
       state.joinNewTodo.isOpen = false;
     },
+    sharingOpen: (state) => {
+      state.sharing.isOpen = true;
+    },
+    sharingClose: (state) => {
+      state.sharing.isOpen = false;
+    },
   },
 });
 
@@ -56,5 +68,7 @@ export const {
   newTodoOpen,
   newTodoJoinOpen,
   newTodoJoinClose,
+  sharingOpen,
+  sharingClose,
 } = modelSlice.actions;
 export default modelSlice.reducer;

@@ -7,11 +7,13 @@ import NewTodo from "../components/modals/NewTodo";
 import TodoBar from "../components/TodoBar";
 import TaskList from "../components/TaskList";
 import JoinTodo from "../components/modals/JoinTodo";
+import SharingList from "../components/modals/SharingList";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
   const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
   const joinTodo = useSelector((state: any) => state.modal.joinNewTodo.isOpen);
+  const sharing = useSelector((state: any) => state.modal.sharing.isOpen);
   const [refreshing, isRefreshing] = useState<boolean>(false);
   const header = {
     "Content-Type": "application/json",
@@ -65,6 +67,7 @@ const ToDo = () => {
     <div className="overflow-hidden h-screen w-screen">
       {newTodo && <NewTodo />}
       {joinTodo && <JoinTodo />}
+      {sharing && <SharingList />}
       <Navbar />
       <div className="flex w-full h-full">
         <TodoList />
