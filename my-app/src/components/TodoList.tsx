@@ -141,22 +141,24 @@ const TodoList = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex justify-center items-center flex-col">
-          <p className="lg:text-xl xl:text-3xl">You don't have any todos</p>
-          <button
-            className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
-            onClick={handleNewTodo}
-          >
-            <AiOutlinePlus className="self-center" />
-            Todo
-          </button>
-          <button
-            className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
-            onClick={handleJoinTodo}
-          >
-            <AiOutlinePlus className="self-center" />
-            Todo
-          </button>
+        <div className="w-full h-full flex flex-col justify-center items-center border-r-4 border-green-700">
+          <p className="text-center text-xl">You don't have any todos ;c</p>
+          <div className="flex flex-row">
+            <button
+              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              onClick={handleNewTodo}
+            >
+              <AiOutlinePlus className="self-center" />
+              Todo
+            </button>
+            <button
+              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              onClick={handleNewTodo}
+            >
+              <AiOutlinePlus className="self-center" />
+              Join
+            </button>
+          </div>
         </div>
       )}
     </div>

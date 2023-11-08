@@ -1,21 +1,43 @@
 import { GrClose } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { newTodoJoinClose } from "../../state/modal";
+import { updateTodos } from "../../state/user";
 
 const JoinTodo = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
   const handleClose = () => {
     dispatch(newTodoJoinClose());
   };
-
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const { code, password } = e.target.elements;
+    const response = await fetch("http://localhost:5000/todo/joinTodoList", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({
+        id: user.id,
+        code: code.value,
+        password: password.value,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(updateTodos(data));
+      dispatch(newTodoJoinClose());
+    }
+  };
   return (
     <section className="absolute h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50">
       <div className="relative w-3/5 md:w-2/5 xl:w-1/5 bg-white rounded-xl">
         <div className="w-full p-3">
-          <h2 className="text-center text-3xl mb-6">Join TodoList</h2>
+          <h2 className="text-center text-3xl mb-6">Join Todo List</h2>
           <form
             className="grid grid-cols-3 gap-4 w-full justify-center"
-            onSubmit={() => console.log("CLOSE")}
+            onSubmit={handleSubmit}
           >
             <label htmlFor="title" className="p-2">
               Code

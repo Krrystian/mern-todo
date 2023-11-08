@@ -63,3 +63,35 @@ export const removeTodoList = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
+
+export const joinTodoList = async (req, res) => {
+  try {
+    const { id, code, password } = req.body;
+    const todoList = await TodoList.findById(code);
+    if (!todoList) {
+      return res.status(404).json({ message: "Something went wrong" });
+    }
+    if (todoList.password) {
+      const isMatch = await bcrypt.compare(password, todoList.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Something went wrong" });
+      }
+    }
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Something went wrong" });
+    }
+    user.todos.push(todoList);
+    await user.save();
+
+    const sterilizedTodoList = {
+      title: todoList.title,
+      _id: todoList._id,
+      completed: todoList.completed,
+      uncompleted: todoList.uncompleted,
+    };
+    return res.status(200).json(sterilizedTodoList);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};

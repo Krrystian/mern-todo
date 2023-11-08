@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, updateToken } from "../state/user";
 import Navbar from "../components/Navbar";
@@ -12,6 +12,7 @@ const ToDo = () => {
   const token = useSelector((state: any) => state.user.token);
   const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
   const joinTodo = useSelector((state: any) => state.modal.joinNewTodo.isOpen);
+  const [refreshing, isRefreshing] = useState<boolean>(false);
   const header = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Credentials": "true",
@@ -33,15 +34,24 @@ const ToDo = () => {
   };
 
   const isUser = async () => {
-    const response = await fetch("http://localhost:5000/verify", {
-      method: "POST",
-      headers: header,
-      credentials: "include",
-    });
-    if (response.status === 403 || response.ok) {
-      await refreshAndDispatchToken();
-    } else if (!response.ok) {
-      dispatch(setCredentials({ token: "", email: "", username: "" }));
+    try {
+      if (refreshing) return;
+
+      const response = await fetch("http://localhost:5000/verify", {
+        method: "POST",
+        headers: header,
+        credentials: "include",
+      });
+      if (response.status === 403 || response.ok) {
+        isRefreshing(true);
+        await refreshAndDispatchToken();
+      } else if (!response.ok) {
+        dispatch(setCredentials({ token: "", email: "", username: "" }));
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      isRefreshing(false);
     }
   };
 
