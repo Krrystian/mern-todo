@@ -6,11 +6,12 @@ import TodoList from "../components/TodoList";
 import NewTodo from "../components/modals/NewTodo";
 import TodoBar from "../components/TodoBar";
 import TaskList from "../components/TaskList";
-
+import JoinTodo from "../components/modals/JoinTodo";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
   const newTodo = useSelector((state: any) => state.modal.newTodo.isOpen);
+  const joinTodo = useSelector((state: any) => state.modal.joinNewTodo.isOpen);
   const header = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Credentials": "true",
@@ -40,7 +41,7 @@ const ToDo = () => {
     if (response.status === 403 || response.ok) {
       await refreshAndDispatchToken();
     } else if (!response.ok) {
-      //dispatch(setCredentials({ token: "", email: "", username: "" }));
+      dispatch(setCredentials({ token: "", email: "", username: "" }));
     }
   };
 
@@ -53,6 +54,7 @@ const ToDo = () => {
   return token ? (
     <div className="overflow-hidden h-screen w-screen">
       {newTodo && <NewTodo />}
+      {joinTodo && <JoinTodo />}
       <Navbar />
       <div className="flex w-full h-full">
         <TodoList />

@@ -28,7 +28,6 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       dispatch(setCredentials(data));
       dispatch(loadingClose());
       navigate("/todo");

@@ -7,6 +7,7 @@ interface CounterState {
   token: string;
   todoList: any[];
   todo: any;
+  selected: any;
 }
 
 const initialState: CounterState = {
@@ -16,6 +17,7 @@ const initialState: CounterState = {
   token: "",
   todoList: [],
   todo: "",
+  selected: "",
 };
 
 export const userSlice = createSlice({
@@ -45,6 +47,9 @@ export const userSlice = createSlice({
         (todo) => todo.id !== action.payload.id
       );
     },
+    setSelected: (state, action) => {
+      state.selected = action.payload;
+    },
   },
 });
 
@@ -55,5 +60,6 @@ export const {
   updateTodos,
   setTodo,
   deleteTodo,
+  setSelected,
 } = userSlice.actions;
 export default userSlice.reducer;

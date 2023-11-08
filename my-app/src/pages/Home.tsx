@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Loading from "../components/Loading";
-import { useDispatch, useSelector } from "react-redux";
-import { loadingClose } from "../state/modal";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [register, setRegister] = useState(false);
-  const dispatch = useDispatch();
-  dispatch(loadingClose());
   const loading = useSelector((state: any) => state.modal.loading.isLoading);
   const user = useSelector((state: any) => state.user);
   const navigate = useNavigate();

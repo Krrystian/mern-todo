@@ -7,6 +7,9 @@ interface CounterState {
   newTodo: {
     isOpen: boolean;
   };
+  joinNewTodo: {
+    isOpen: boolean;
+  };
 }
 
 const initialState: CounterState = {
@@ -14,6 +17,9 @@ const initialState: CounterState = {
     isLoading: false,
   },
   newTodo: {
+    isOpen: false,
+  },
+  joinNewTodo: {
     isOpen: false,
   },
 };
@@ -34,9 +40,21 @@ export const modelSlice = createSlice({
     newTodoClose: (state) => {
       state.newTodo.isOpen = false;
     },
+    newTodoJoinOpen: (state) => {
+      state.joinNewTodo.isOpen = true;
+    },
+    newTodoJoinClose: (state) => {
+      state.joinNewTodo.isOpen = false;
+    },
   },
 });
 
-export const { loadingOpen, loadingClose, newTodoClose, newTodoOpen } =
-  modelSlice.actions;
+export const {
+  loadingOpen,
+  loadingClose,
+  newTodoClose,
+  newTodoOpen,
+  newTodoJoinOpen,
+  newTodoJoinClose,
+} = modelSlice.actions;
 export default modelSlice.reducer;

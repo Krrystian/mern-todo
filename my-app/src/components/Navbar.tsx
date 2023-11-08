@@ -36,7 +36,7 @@ const Navbar = () => {
         {hamburger ? <GrClose size={25} /> : <GiHamburgerMenu size={25} />}
       </div>
       {todoName && (
-        <div className="text-xl font-bold select-none cursor-default text-green-700 lg:hidden">
+        <div className="text-xl font-bold select-none cursor-default max-w-[20%] text-green-700 lg:hidden text-ellipsis whitespace-nowrap overflow-hidden">
           {todoName}
         </div>
       )}

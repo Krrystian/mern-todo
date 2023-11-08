@@ -1,16 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
-import { newTodoClose, newTodoOpen } from "../state/modal";
+import { newTodoClose, newTodoJoinOpen, newTodoOpen } from "../state/modal";
 import { useEffect, useState } from "react";
-import { deleteTodo, setTodo, setTodos } from "../state/user";
+import { deleteTodo, setSelected, setTodo, setTodos } from "../state/user";
 
 const TodoList = () => {
   const todos = useSelector((state: any) => state.user.todoList);
   const token = useSelector((state: any) => state.user.token);
   const user = useSelector((state: any) => state.user);
-  const [selected, setSelected] = useState<string>("");
+  const selected = useSelector((state: any) => state.user.selected);
   const dispatch = useDispatch();
+  const [titles, setTitles] = useState<string[]>([]);
+  const [filteredTitles, setFilteredTitles] = useState<string[]>([]);
+  const handleChange = (e: any) => {
+    const filtered = titles.filter((title) => {
+      return title.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+    setFilteredTitles(filtered);
+  };
 
   const getTodos = async () => {
     const repsonse = await fetch(
@@ -39,6 +47,9 @@ const TodoList = () => {
   const handleNewTodo = () => {
     dispatch(newTodoOpen());
   };
+  const handleJoinTodo = () => {
+    dispatch(newTodoJoinOpen());
+  };
 
   const handleDelete = async (e: any, id: string) => {
     e.stopPropagation();
@@ -51,7 +62,6 @@ const TodoList = () => {
       body: JSON.stringify({ id: id }),
     });
     if (response.ok) {
-      const data = await response.json();
       dispatch(deleteTodo(id));
     }
   };
@@ -61,6 +71,7 @@ const TodoList = () => {
         <input
           className="w-[90%] p-2 border-2 border-green-700 rounded-full placeholder:text-center my-6 text-center focus:outline-none"
           placeholder="Your todos"
+          onChange={handleChange}
         />
       </div>
 
@@ -68,6 +79,13 @@ const TodoList = () => {
         <div className="w-full h-full flex flex-col">
           {todos.map((todo: any) => {
             const isSelected = selected === todo._id;
+            if (
+              filteredTitles.length > 0 &&
+              !filteredTitles.includes(todo.title) &&
+              !isSelected
+            )
+              return;
+            titles.push(todo.title);
             return (
               <div
                 key={todo._id}
@@ -78,7 +96,7 @@ const TodoList = () => {
                   : " border-r-4 border-green-700"
               }`}
                 onClick={() => {
-                  setSelected(todo._id);
+                  dispatch(setSelected(todo._id));
                   dispatch(setTodo(todo));
                 }}
               >
@@ -113,14 +131,28 @@ const TodoList = () => {
               <AiOutlinePlus className="self-center" />
               Todo
             </button>
+            <button
+              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              onClick={handleJoinTodo}
+            >
+              <AiOutlinePlus className="self-center" />
+              Join
+            </button>
           </div>
         </div>
       ) : (
         <div className="w-full h-full flex justify-center items-center flex-col">
           <p className="lg:text-xl xl:text-3xl">You don't have any todos</p>
           <button
-            className="flex m-3 bg-green-700 rounded-xl p-2 px-6 justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+            className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
             onClick={handleNewTodo}
+          >
+            <AiOutlinePlus className="self-center" />
+            Todo
+          </button>
+          <button
+            className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+            onClick={handleJoinTodo}
           >
             <AiOutlinePlus className="self-center" />
             Todo
