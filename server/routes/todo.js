@@ -4,6 +4,7 @@ import {
   getTodoList,
   removeTodoList,
   joinTodoList,
+  changeTitle,
 } from "../controllers/todo.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -11,5 +12,6 @@ const router = express.Router();
 router.post("/newTodoList", verifyToken, newTodoList);
 router.get("/getTodoList", verifyToken, getTodoList);
 router.put("/removeTodoList", verifyToken, removeTodoList);
-router.post("/joinTodoList", verifyToken, joinTodoList);
+router.put("/joinTodoList", verifyToken, joinTodoList);
+router.put("/changeTitle", verifyToken, changeTitle);
 export default router;

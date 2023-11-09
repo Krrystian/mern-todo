@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setTodo } from "../state/user";
-import { sharingOpen } from "../state/modal";
+import { sharingOpen, titleOpen } from "../state/modal";
 
 const TodoBar = () => {
   const dispatch = useDispatch();
@@ -12,6 +12,9 @@ const TodoBar = () => {
   }
   const handleShare = () => {
     dispatch(sharingOpen());
+  };
+  const handleTitle = () => {
+    dispatch(titleOpen());
   };
 
   return lists.length > 0 && todo && selected ? (
@@ -25,7 +28,10 @@ const TodoBar = () => {
       >
         Share list
       </div>
-      <div className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center">
+      <div
+        className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
+        onClick={handleTitle}
+      >
         Change title
       </div>
       <div className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center">

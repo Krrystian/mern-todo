@@ -39,6 +39,14 @@ export const userSlice = createSlice({
     updateTodos: (state, action) => {
       state.todoList = [...state.todoList, action.payload];
     },
+    titleUpdate: (state, action) => {
+      state.todoList = state.todoList.map((todo) => {
+        if (todo._id === action.payload._id) {
+          todo.title = action.payload.title;
+        }
+        return todo;
+      });
+    },
     setTodo: (state, action) => {
       state.todo = action.payload;
     },
@@ -61,5 +69,6 @@ export const {
   setTodo,
   deleteTodo,
   setSelected,
+  titleUpdate,
 } = userSlice.actions;
 export default userSlice.reducer;

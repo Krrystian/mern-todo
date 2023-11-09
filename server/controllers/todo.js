@@ -28,6 +28,7 @@ export const newTodoList = async (req, res) => {
       _id: todoList._id,
       completed: todoList.completed,
       uncompleted: todoList.uncompleted,
+      inProgress: todoList.inProgress,
     };
     return res.status(201).json(sterilizedTodoList);
   } catch (error) {
@@ -76,6 +77,12 @@ export const joinTodoList = async (req, res) => {
       if (!isMatch) {
         return res.status(401).json({ message: "Something went wrong" });
       }
+    } else {
+      const passwd = "";
+      const isMatch = await bcrypt.compare(password, passwd);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Something went wrong" });
+      }
     }
     const user = await User.findById(id);
     if (!user) {
@@ -89,6 +96,28 @@ export const joinTodoList = async (req, res) => {
       _id: todoList._id,
       completed: todoList.completed,
       uncompleted: todoList.uncompleted,
+      inProgress: todoList.inProgress,
+    };
+    return res.status(200).json(sterilizedTodoList);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+export const changeTitle = async (req, res) => {
+  try {
+    const { id, title } = req.body;
+    const todoList = await TodoList.findById(id);
+    if (!todoList) {
+      return res.status(404).json({ message: "Something went wrong" });
+    }
+    todoList.title = title;
+    await todoList.save();
+    const sterilizedTodoList = {
+      title: todoList.title,
+      _id: todoList._id,
+      completed: todoList.completed,
+      uncompleted: todoList.uncompleted,
+      inProgress: todoList.inProgress,
     };
     return res.status(200).json(sterilizedTodoList);
   } catch (error) {
