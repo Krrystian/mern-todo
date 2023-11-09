@@ -124,3 +124,22 @@ export const changeTitle = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
+
+export const changePassword = async (req, res) => {
+  try {
+    let { id, password } = req.body;
+    const todoList = await TodoList.findById(id);
+    if (!todoList) {
+      return res.status(404).json({ message: "NotFound" });
+      const password = await bcrypt.hash(password, 10);
+    }
+    if (!password) {
+      password = "";
+    }
+    todoList.password = password;
+    await todoList.save();
+    return res.status(200).json({ message: "Password changed" });
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};

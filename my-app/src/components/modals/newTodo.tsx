@@ -32,8 +32,14 @@ const NewTodo = () => {
   };
 
   return (
-    <section className="absolute h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50">
-      <div className="relative w-3/5 md:w-2/5 xl:w-1/5 bg-white rounded-xl">
+    <section
+      className="absolute h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"
+      onClick={handleClose}
+    >
+      <div
+        className="relative w-3/5 md:w-2/5 xl:w-1/5 bg-white rounded-xl"
+        onClick={(e: any) => e.stopPropagation()}
+      >
         <div className="w-full p-3">
           <h2 className="text-center text-3xl mb-6">New Todo List</h2>
           <form

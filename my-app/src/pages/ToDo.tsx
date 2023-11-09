@@ -9,6 +9,7 @@ import TaskList from "../components/TaskList";
 import JoinTodo from "../components/modals/JoinTodo";
 import SharingList from "../components/modals/SharingList";
 import TitleTodo from "../components/modals/TitleTodo";
+import PasswordTodo from "../components/modals/PasswordTodo";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
@@ -16,6 +17,7 @@ const ToDo = () => {
   const joinTodo = useSelector((state: any) => state.modal.joinNewTodo.isOpen);
   const sharing = useSelector((state: any) => state.modal.sharing.isOpen);
   const title = useSelector((state: any) => state.modal.title.isOpen);
+  const password = useSelector((state: any) => state.modal.password.isOpen);
   const [refreshing, isRefreshing] = useState<boolean>(false);
   const header = {
     "Content-Type": "application/json",
@@ -71,6 +73,7 @@ const ToDo = () => {
       {joinTodo && <JoinTodo />}
       {sharing && <SharingList />}
       {title && <TitleTodo />}
+      {password && <PasswordTodo />}
       <Navbar />
       <div className="flex w-full h-full">
         <TodoList />
