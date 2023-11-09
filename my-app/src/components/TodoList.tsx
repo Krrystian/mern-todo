@@ -13,13 +13,6 @@ const TodoList = () => {
   const dispatch = useDispatch();
   const [titles, setTitles] = useState<string[]>([]);
   const [filteredTitles, setFilteredTitles] = useState<string[]>([]);
-  const handleChange = (e: any) => {
-    const filtered = titles.filter((title) => {
-      return title.toLowerCase().includes(e.target.value.toLowerCase());
-    });
-    setFilteredTitles(filtered);
-  };
-
   const getTodos = async () => {
     const repsonse = await fetch(
       `http://localhost:5000/todo/getTodoList?id=${user.id}`,
@@ -43,7 +36,16 @@ const TodoList = () => {
   useEffect(() => {
     getTodos();
   }, []);
-
+  const handleChange = (e: any) => {
+    const filtered = titles.filter((title) => {
+      return title.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+    setFilteredTitles(filtered);
+  };
+  const handleSelect = (id: string) => {
+    dispatch(setSelected(id));
+    //dispatch(setTodo(todo)); //change required
+  };
   const handleNewTodo = () => {
     dispatch(newTodoOpen());
   };
@@ -95,10 +97,7 @@ const TodoList = () => {
                   ? " bg-white border-y-4 border-l-4 rounded-l-full border-green-700"
                   : " border-r-4 border-green-700"
               }`}
-                onClick={() => {
-                  dispatch(setSelected(todo._id));
-                  dispatch(setTodo(todo));
-                }}
+                onClick={() => handleSelect(todo._id)}
               >
                 <h2 className="text-center self-center text-2xl max-w-[40%] text-ellipsis whitespace-nowrap overflow-hidden">
                   {todo.title}
@@ -106,11 +105,15 @@ const TodoList = () => {
                 <div className="text-sm xl:text-md">
                   <p>
                     Completed {todo.completed.length} / &nbsp;
-                    {todo.completed.length + todo.uncompleted.length}
+                    {todo.completed.length +
+                      todo.uncompleted.length +
+                      todo.inProgress.length}
                   </p>
                   <p>
                     Uncompleted: {todo.uncompleted.length} / &nbsp;
-                    {todo.completed.length + todo.uncompleted.length}
+                    {todo.completed.length +
+                      todo.uncompleted.length +
+                      todo.inProgress.length}
                   </p>
                 </div>
                 <GrClose

@@ -131,10 +131,11 @@ export const changePassword = async (req, res) => {
     const todoList = await TodoList.findById(id);
     if (!todoList) {
       return res.status(404).json({ message: "NotFound" });
-      const password = await bcrypt.hash(password, 10);
     }
     if (!password) {
       password = "";
+    } else {
+      password = await bcrypt.hash(password, 10);
     }
     todoList.password = password;
     await todoList.save();
