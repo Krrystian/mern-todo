@@ -19,7 +19,7 @@ const SharingList = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-4/5 md:w-3/5 xl:w-2/5 bg-white rounded-xl flex-col flex justify-center items-center p-2"
+        className="relative w-full md:w-3/5 xl:w-2/5 bg-white rounded-xl flex-col flex justify-center items-center p-2"
         onClick={(e: any) => e.stopPropagation()}
       >
         <h2 className="text-center text-3xl mb-3">Share your Todo</h2>

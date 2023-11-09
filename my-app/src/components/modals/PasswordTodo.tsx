@@ -32,7 +32,7 @@ const PasswordTodo = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-3/5 md:w-2/5 xl:w-1/3 bg-white rounded-xl flex-col flex justify-center items-center p-3"
+        className="relative w-full md:w-2/5 xl:w-1/3 bg-white rounded-xl flex-col flex justify-center items-center p-3"
         onClick={(e: any) => e.stopPropagation()}
       >
         <h2 className="text-center text-3xl mb-3">Change password</h2>

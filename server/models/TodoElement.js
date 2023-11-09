@@ -9,13 +9,13 @@ const TodoElementSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    threeStep: {
+    progressInclude: {
       type: Boolean,
       default: false,
     },
-    progress: {
-      type: Number,
-      default: 0,
+    progressStage: {
+      type: String,
+      default: "uncompleted",
     },
   },
   { timestamps: true }

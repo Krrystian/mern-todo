@@ -36,7 +36,7 @@ const JoinTodo = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-3/5 md:w-2/5 xl:w-1/5 bg-white rounded-xl"
+        className="relative w-full md:w-2/5 xl:w-1/5 bg-white rounded-xl"
         onClick={(e: any) => e.stopPropagation()}
       >
         <div className="w-full p-3">

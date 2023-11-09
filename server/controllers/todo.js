@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import TodoList from "../models/todo.js";
 import User from "../models/User.js";
-
+import TodoElement from "../models/TodoElement.js";
 export const newTodoList = async (req, res) => {
   try {
     const { title, password, id } = req.body;
@@ -143,4 +143,19 @@ export const changePassword = async (req, res) => {
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }
+};
+
+export const newTask = async (req, res) => {
+  const { title, description, stage, format, id } = req.body;
+  const todoList = await TodoList.findById(id);
+  const task = new TodoElement({
+    title,
+    description,
+    progressInclude: format,
+    progressStage: stage,
+  });
+  todoList[stage].push(task);
+  await task.save();
+  await todoList.save();
+  res.status(201).json(task.select("-__v -createdAt -updatedAt"));
 };

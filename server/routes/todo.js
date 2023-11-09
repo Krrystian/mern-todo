@@ -6,6 +6,7 @@ import {
   joinTodoList,
   changeTitle,
   changePassword,
+  newTask,
 } from "../controllers/todo.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -16,4 +17,5 @@ router.put("/removeTodoList", verifyToken, removeTodoList);
 router.put("/joinTodoList", verifyToken, joinTodoList);
 router.put("/changeTitle", verifyToken, changeTitle);
 router.put("/changePassword", verifyToken, changePassword);
+router.post("/newTask", verifyToken, newTask);
 export default router;

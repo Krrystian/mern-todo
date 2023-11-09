@@ -19,6 +19,9 @@ interface CounterState {
   password: {
     isOpen: boolean;
   };
+  newTask: {
+    isOpen: boolean;
+  };
 }
 
 const initialState: CounterState = {
@@ -38,6 +41,9 @@ const initialState: CounterState = {
     isOpen: false,
   },
   password: {
+    isOpen: false,
+  },
+  newTask: {
     isOpen: false,
   },
 };
@@ -82,6 +88,12 @@ export const modelSlice = createSlice({
     passwordClose: (state) => {
       state.password.isOpen = false;
     },
+    newTaskOpen: (state) => {
+      state.newTask.isOpen = true;
+    },
+    newTaskClose: (state) => {
+      state.newTask.isOpen = false;
+    },
   },
 });
 
@@ -98,5 +110,7 @@ export const {
   titleClose,
   passwordOpen,
   passwordClose,
+  newTaskOpen,
+  newTaskClose,
 } = modelSlice.actions;
 export default modelSlice.reducer;

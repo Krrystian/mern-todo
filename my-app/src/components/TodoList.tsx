@@ -42,9 +42,9 @@ const TodoList = () => {
     });
     setFilteredTitles(filtered);
   };
-  const handleSelect = (id: string) => {
-    dispatch(setSelected(id));
-    //dispatch(setTodo(todo)); //change required
+  const handleSelect = (todo: any) => {
+    dispatch(setSelected(todo._id));
+    dispatch(setTodo(todo)); //change required
   };
   const handleNewTodo = () => {
     dispatch(newTodoOpen());
@@ -97,7 +97,7 @@ const TodoList = () => {
                   ? " bg-white border-y-4 border-l-4 rounded-l-full border-green-700"
                   : " border-r-4 border-green-700"
               }`}
-                onClick={() => handleSelect(todo._id)}
+                onClick={() => handleSelect(todo)}
               >
                 <h2 className="text-center self-center text-2xl max-w-[40%] text-ellipsis whitespace-nowrap overflow-hidden">
                   {todo.title}

@@ -1,7 +1,7 @@
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { titleClose } from "../../state/modal";
-import { setTodo, titleUpdate, updateTodos } from "../../state/user";
+import { setTodo, titleUpdate } from "../../state/user";
 
 const TitleTodo = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const TitleTodo = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-3/5 md:w-2/5 xl:w-1/5 bg-white rounded-xl"
+        className="relative w-full md:w-2/5 xl:w-1/5 bg-white rounded-xl"
         onClick={(e: any) => e.stopPropagation()}
       >
         <div className="w-full p-3">
