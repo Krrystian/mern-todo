@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, updateToken } from "../state/user";
 import Navbar from "../components/Navbar";
@@ -18,54 +18,64 @@ const ToDo = () => {
   const sharing = useSelector((state: any) => state.modal.sharing.isOpen);
   const title = useSelector((state: any) => state.modal.title.isOpen);
   const password = useSelector((state: any) => state.modal.password.isOpen);
-  const [refreshing, isRefreshing] = useState<boolean>(false);
-  const header = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Credentials": "true",
-    Authorization: `Bearer ${token}`,
-  };
-  const refreshAndDispatchToken = async () => {
-    await fetch("http://localhost:5000/refresh", {
-      method: "GET",
-      headers: header,
-      credentials: "include",
-    }).then(async (res) => {
-      if (res.ok) {
-        const data = await res.json();
-        dispatch(updateToken({ token: data.token }));
-      } else {
-        dispatch(setCredentials({ token: "", email: "", username: "" }));
+  const tokenRef = useRef(token);
+
+  // Update the ref when the token changes
+  useEffect(() => {
+    tokenRef.current = token;
+  }, [token]);
+
+  const refreshAndDispatchToken = useCallback(
+    async (header: any) => {
+      try {
+        const res = await fetch("http://localhost:5000/refresh", {
+          method: "GET",
+          headers: header,
+          credentials: "include",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          dispatch(updateToken({ token: data.token }));
+        } else {
+          dispatch(setCredentials({ token: "", email: "", username: "" }));
+        }
+      } catch (error) {
+        console.error(error);
       }
-    });
-  };
+    },
+    [dispatch]
+  );
 
-  const isUser = async () => {
+  const isUser = useCallback(async () => {
+    const header = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
+      Authorization: `Bearer ${tokenRef.current}`,
+    };
     try {
-      if (refreshing) return;
-
       const response = await fetch("http://localhost:5000/verify", {
         method: "POST",
         headers: header,
-        credentials: "include",
       });
+
       if (response.status === 403 || response.ok) {
-        isRefreshing(true);
-        await refreshAndDispatchToken();
+        await refreshAndDispatchToken(header);
       } else if (!response.ok) {
         dispatch(setCredentials({ token: "", email: "", username: "" }));
       }
     } catch (err) {
       console.log(err);
-    } finally {
-      isRefreshing(false);
     }
-  };
+  }, [dispatch, refreshAndDispatchToken]);
 
   useEffect(() => {
-    isUser();
-    const intervalId = setInterval(isUser, 1000 * 60 * 5);
+    const fetchData = async () => {
+      await isUser();
+    };
+    fetchData();
+    const intervalId = setInterval(fetchData, 1000 * 60 * 15);
     return () => clearInterval(intervalId);
-  }, [token]);
+  }, []);
 
   return token ? (
     <div className="overflow-hidden h-screen w-screen">
