@@ -9,6 +9,7 @@ const TodoList = () => {
   const todos = useSelector((state: any) => state.user.todoList);
   const token = useSelector((state: any) => state.user.token);
   const user = useSelector((state: any) => state.user);
+  const menuBar = useSelector((state: any) => state.modal.menuBar.isOpen);
   const selected = useSelector((state: any) => state.user.selected);
   const dispatch = useDispatch();
   const [titles, setTitles] = useState<string[]>([]);
@@ -35,7 +36,7 @@ const TodoList = () => {
   };
   useEffect(() => {
     getTodos();
-  }, []);
+  }, []); // Something bad when remove
   const handleChange = (e: any) => {
     const filtered = titles.filter((title) => {
       return title.toLowerCase().includes(e.target.value.toLowerCase());
@@ -44,7 +45,7 @@ const TodoList = () => {
   };
   const handleSelect = (todo: any) => {
     dispatch(setSelected(todo._id));
-    dispatch(setTodo(todo)); //change required
+    dispatch(setTodo(todo));
   };
   const handleNewTodo = () => {
     dispatch(newTodoOpen());
@@ -65,11 +66,23 @@ const TodoList = () => {
     });
     if (response.ok) {
       dispatch(deleteTodo(id));
+      if (selected === id) {
+        dispatch(setSelected(""));
+        dispatch(setTodo(""));
+      }
     }
   };
   return (
-    <div className="flex-col h-[94%] w-[30%] overflow-hidden hidden lg:flex">
-      <div className="w-full flex justify-center border-r-4 border-green-700">
+    <div
+      className={`flex-col h-[94%] w-[30%] overflow-hidden lg:flex ${
+        menuBar ? "hidden" : "flex z-10 absolute w-full bg-white"
+      }`}
+    >
+      <div
+        className={`w-full flex justify-center border-green-700 ${
+          menuBar ? "border-r-4" : ""
+        }`}
+      >
         <input
           className="w-[90%] p-2 border-2 border-green-700 rounded-full placeholder:text-center my-6 text-center focus:outline-none"
           placeholder="Your todos"
@@ -86,7 +99,7 @@ const TodoList = () => {
               !filteredTitles.includes(todo.title) &&
               !isSelected
             )
-              return;
+              return null;
             titles.push(todo.title);
             return (
               <div
@@ -94,8 +107,12 @@ const TodoList = () => {
                 className={`flex justify-between p-3 cursor-pointer hover:bg-white hover:shadow-[0px_0px_5px_5px_#15803d] rounded-l-full transition-all duration-300 hover:z-20
               ${
                 isSelected
-                  ? " bg-white border-y-4 border-l-4 rounded-l-full border-green-700"
-                  : " border-r-4 border-green-700"
+                  ? `bg-white border-green-700 ${
+                      menuBar
+                        ? "border-y-4 border-l-4 rounded-l-full"
+                        : "border-4 rounded-full"
+                    }`
+                  : ` border-green-700 ${menuBar ? "border-r-4" : ""}`
               }`}
                 onClick={() => handleSelect(todo)}
               >
@@ -126,7 +143,11 @@ const TodoList = () => {
               </div>
             );
           })}
-          <div className="w-full h-full flex justify-center border-r-4 border-green-700">
+          <div
+            className={`w-full h-full flex justify-center border-green-700 ${
+              menuBar && "border-r-4"
+            }`}
+          >
             <button
               className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
               onClick={handleNewTodo}
@@ -144,7 +165,11 @@ const TodoList = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex flex-col justify-center items-center border-r-4 border-green-700">
+        <div
+          className={`w-full h-full flex flex-col justify-center items-center border-green-700 ${
+            menuBar ? "border-r-4" : "border-none"
+          }`}
+        >
           <p className="text-center text-xl">You don't have any todos ;c</p>
           <div className="flex flex-row">
             <button

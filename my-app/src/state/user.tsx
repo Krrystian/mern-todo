@@ -52,7 +52,7 @@ export const userSlice = createSlice({
     },
     deleteTodo: (state, action) => {
       state.todoList = state.todoList.filter(
-        (todo) => todo.id !== action.payload.id
+        (todo) => todo._id !== action.payload
       );
     },
     setSelected: (state, action) => {

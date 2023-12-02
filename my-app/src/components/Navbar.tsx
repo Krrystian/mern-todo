@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../state/user";
+import { menuClose, menuOpen } from "../state/modal";
 
 const Navbar = () => {
   const user = useSelector((state: any) => state.user);
@@ -27,6 +28,11 @@ const Navbar = () => {
       dispatch(setCredentials({ token: "", email: "", username: "" }));
     }
   };
+
+  useEffect(() => {
+    hamburger ? dispatch(menuClose()) : dispatch(menuOpen());
+  }, [hamburger]);
+
   return (
     <section className="w-full h-[6%] flex items-center gap-1 justify-between lg:justify-end px-5 border-b-2 relative">
       <div

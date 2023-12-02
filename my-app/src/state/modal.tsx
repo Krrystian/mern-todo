@@ -22,6 +22,9 @@ interface CounterState {
   newTask: {
     isOpen: boolean;
   };
+  menuBar: {
+    isOpen: boolean;
+  };
 }
 
 const initialState: CounterState = {
@@ -44,6 +47,9 @@ const initialState: CounterState = {
     isOpen: false,
   },
   newTask: {
+    isOpen: false,
+  },
+  menuBar: {
     isOpen: false,
   },
 };
@@ -94,6 +100,12 @@ export const modelSlice = createSlice({
     newTaskClose: (state) => {
       state.newTask.isOpen = false;
     },
+    menuOpen: (state) => {
+      state.menuBar.isOpen = true;
+    },
+    menuClose: (state) => {
+      state.menuBar.isOpen = false;
+    },
   },
 });
 
@@ -112,5 +124,7 @@ export const {
   passwordClose,
   newTaskOpen,
   newTaskClose,
+  menuOpen,
+  menuClose,
 } = modelSlice.actions;
 export default modelSlice.reducer;
