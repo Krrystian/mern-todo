@@ -11,6 +11,7 @@ import SharingList from "../components/modals/SharingList";
 import TitleTodo from "../components/modals/TitleTodo";
 import PasswordTodo from "../components/modals/PasswordTodo";
 import NewTask from "../components/modals/NewTask";
+import { Link } from "react-router-dom";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
@@ -97,7 +98,19 @@ const ToDo = () => {
       </div>
     </div>
   ) : (
-    <div>You're not here.</div>
+    //Simple unauthorized access module
+    <div className="w-screen h-screen flex gap-3 justify-center items-center flex-col cursor-default">
+      <h2 className="font-extrabold text-3xl w-screen text-center">
+        Unauthorized access
+      </h2>
+      <Link
+        to="/"
+        className="text-black/70 text-xl max-w-screen text-center cursor-pointer
+        hover:text-blue-900 hover:scale-150 transition-all duration-300"
+      >
+        Please login or register
+      </Link>
+    </div>
   );
 };
 
