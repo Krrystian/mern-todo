@@ -43,6 +43,11 @@ export const getTodoList = async (req, res) => {
       path: "todos",
       match: { active: true },
       select: "-password -active -__v -createdAt -updatedAt",
+      populate: [
+        { path: "completed", select: "-__v -createdAt -updatedAt" },
+        { path: "uncompleted", select: "-__v -createdAt -updatedAt" },
+        { path: "inProgress", select: "-__v -createdAt -updatedAt" },
+      ],
     });
     return res.status(200).json({ todos: user.todos });
   } catch (error) {
@@ -146,16 +151,30 @@ export const changePassword = async (req, res) => {
 };
 
 export const newTask = async (req, res) => {
-  const { title, description, stage, format, id } = req.body;
-  const todoList = await TodoList.findById(id);
-  const task = new TodoElement({
-    title,
-    description,
-    progressInclude: format,
-    progressStage: stage,
-  });
-  todoList[stage].push(task);
-  await task.save();
-  await todoList.save();
-  res.status(201).json(task.select("-__v -createdAt -updatedAt"));
+  try {
+    const { title, description, stage, format, id } = req.body;
+    const todoList = await TodoList.findById(id);
+    if (!todoList) {
+      return res.status(404).json({ message: "Todo list not found" });
+    }
+    const task = new TodoElement({
+      title,
+      description,
+      progressInclude: format,
+      progressStage: stage,
+    });
+    todoList[stage].push(task);
+    await task.save();
+    await todoList.save();
+    const serializeTask = {
+      title: task.title,
+      description: task.description,
+      progressInclude: task.progressInclude,
+      progressStage: task.progressStage,
+      _id: task._id,
+    };
+    return res.status(201).json(serializeTask);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
 };

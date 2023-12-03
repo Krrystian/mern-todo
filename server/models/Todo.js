@@ -17,19 +17,19 @@ var TodoSchema = new mongoose.Schema(
     completed: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Task",
+        ref: "TodoElement",
       },
     ],
     uncompleted: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Task",
+        ref: "TodoElement",
       },
     ],
     inProgress: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Task",
+        ref: "TodoElement",
       },
     ],
   },
