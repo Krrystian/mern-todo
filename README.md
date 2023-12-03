@@ -2,9 +2,13 @@
 ## Overview
 This project is a web application designed to help users manage their tasks efficiently. The Todo Website allows users to create, organize, and prioritize their to-do lists, providing a user-friendly interface for a seamless task management experience.Whether you are working with your smartphone or computer application provides a clutter-free environment, allowing you to tackle your tasks without unnecessary disruptions. The minimalist interface ensures that you can effortlessly navigate through your to-do lists, maintaining a clear and concentrated mindset to enhance your productivity
 ## Features
-### Create multiple todo lists and task.Easily organize your tasks by creating multiple todo lists tailored to specific projects, categories, or aspects of your life.
-### Share your todo lists.Collaboration is simple! You can share your todo lists with others. Remember we do not provide a way of managing users assigned to one project so every user can modify tasks.
-### Intuivie task organization.Todo application provides a very simple way of organiznig your tasks. You can choose between 3-way or 2-way (without in-progress) stage tasks.### Efortless task creation. There is still a lot of todo applications that provide you better task configuration but do you really need it? This one gives you a tool to make your own task without any extra configuration.## Technology
+### Create multiple todo lists and task.
+Easily organize your tasks by creating multiple todo lists tailored to specific projects, categories, or aspects of your life.
+### Share your todo lists.
+Collaboration is simple! You can share your todo lists with others. Remember we do not provide a way of managing users assigned to one project so every user can modify tasks.
+### Intuivie task organization.
+Todo application provides a very simple way of organiznig your tasks. You can choose between 3-way or 2-way (without in-progress) stage tasks.### Efortless task creation. There is still a lot of todo applications that provide you better task configuration but do you really need it? This one gives you a tool to make your own task without any extra configuration.
+## Technology
 ### Frontend with React
 This project is using React for frontend application. React provides great ways of managing components. To provide a better and safer environment for developers, website is using Typescript for type safety. On the other hand it uses Redux for managing states with redux persist for consolidating not crucial informations on localStorage. Instead of using CSS for styling components, the application is using Tailwind which provides great inline css styling.
 ### Backend with Node
