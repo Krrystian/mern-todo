@@ -163,15 +163,17 @@ export const newTask = async (req, res) => {
       progressInclude: format,
       progressStage: stage,
     });
+    console.log(todoList);
+    console.log(stage);
     todoList[stage].push(task);
     await task.save();
     await todoList.save();
     const serializeTask = {
+      _id: task._id,
       title: task.title,
       description: task.description,
       progressInclude: task.progressInclude,
       progressStage: task.progressStage,
-      _id: task._id,
     };
     return res.status(201).json(serializeTask);
   } catch (error) {

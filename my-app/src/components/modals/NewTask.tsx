@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { newTaskClose } from "../../state/modal";
+import { updateTasks } from "../../state/user";
 
 const NewTask = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,7 @@ const NewTask = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-
+      dispatch(updateTasks(data));
       dispatch(newTaskClose());
     }
   };
@@ -97,7 +97,7 @@ const NewTask = () => {
               onChange={(e) => setSelectedOption(e.target.value)}
             >
               <option value="uncompleted">Uncompleted</option>
-              <option value="inprogress" disabled={!isChecked}>
+              <option value="inProgress" disabled={!isChecked}>
                 In Progress
               </option>
               <option value="completed">Completed</option>
