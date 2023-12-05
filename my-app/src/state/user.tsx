@@ -61,6 +61,7 @@ export const userSlice = createSlice({
     updateTasks: (state, action) => {
       if (action.payload.progressStage === "uncompleted") {
         state.todo.uncompleted = [...state.todo.uncompleted, action.payload];
+        // eslint-disable-next-line
         state.todoList.map((todo) => {
           if (todo._id === state.todo._id) {
             todo.uncompleted = [...todo.uncompleted, action.payload];
@@ -68,6 +69,7 @@ export const userSlice = createSlice({
         });
       } else if (action.payload.progressStage === "inProgress") {
         state.todo.inProgress = [...state.todo.inProgress, action.payload];
+        // eslint-disable-next-line
         state.todoList.map((todo) => {
           if (todo._id === state.todo._id) {
             todo.inProgress = [...todo.inProgress, action.payload];
@@ -75,6 +77,7 @@ export const userSlice = createSlice({
         });
       } else {
         state.todo.completed = [...state.todo.completed, action.payload];
+        // eslint-disable-next-line
         state.todoList.map((todo) => {
           if (todo._id === state.todo._id) {
             todo.completed = [...todo.completed, action.payload];

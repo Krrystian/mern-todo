@@ -4,6 +4,7 @@ import Input from "./Input";
 import { loadingClose, loadingOpen } from "../state/modal";
 import { setCredentials } from "../state/user";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface LoginProps {
   setRegister: (value: boolean) => void;
@@ -16,6 +17,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     dispatch(loadingOpen());
+
     const { email, password } = e.target.elements;
     const response = await fetch("http://localhost:5000/login", {
       method: "POST",
@@ -29,7 +31,29 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setCredentials(data));
+      toast.success("Logged in", {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       navigate("/todo");
+    }
+    if (!response.ok) {
+      toast.error("Invalid credentials", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     dispatch(loadingClose());
   };

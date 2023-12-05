@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ToDo from "./pages/ToDo";
+import { ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
@@ -16,10 +18,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/todo" element={<ToDo />} />
-          {/* <Route path="/profile/:userId" element={<ProfilePage />} /> */}
         </Routes>
       </BrowserRouter>
-      {/* <ToastContainer limit={2} transition={Slide} /> */}
+      <ToastContainer limit={2} transition={Flip} />
     </Suspense>
   );
 }
