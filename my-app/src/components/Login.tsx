@@ -29,9 +29,9 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setCredentials(data));
-      dispatch(loadingClose());
       navigate("/todo");
     }
+    dispatch(loadingClose());
   };
 
   const handleRegister = useCallback(() => {
