@@ -1,23 +1,27 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Task from "./Task";
 
 const TaskList = () => {
+  const dispatch = useDispatch();
   const completed = useSelector((state: any) => state.user.todo.completed);
   const uncompleted = useSelector((state: any) => state.user.todo.uncompleted);
   const inProgress = useSelector((state: any) => state.user.todo.inProgress);
+
   if (!inProgress)
     return (
-      //full screen different
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-full flex flex-col justify-center items-center cursor-default">
         <h1 className="text-3xl">
           Your everyday <span className="text-green-700">Todo App</span>
         </h1>
+        <h2 className="text-xl mt-3 text-gray-600">
+          Create, join or select todo
+        </h2>
       </div>
     );
   return (
     <div
-      className={`md:grid ${
-        inProgress && inProgress.length > 0 ? "grid-cols-2" : "grid-cols-3"
+      className={`lg:grid ${
+        inProgress && inProgress.length === 0 ? "grid-cols-2" : "grid-cols-3"
       }`}
     >
       <div className="border-r-2 items-center flex flex-col">

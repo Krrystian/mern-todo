@@ -1,14 +1,12 @@
 import React from "react";
 import { GrClose } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editClose } from "../../state/modal";
-interface EditTaskProps {
-  id: string;
-  title: string;
-  description: string;
-}
-const EditTask: React.FC<EditTaskProps> = ({ id, title, description }) => {
+const EditTask = () => {
   const dispatch = useDispatch();
+  const title = useSelector((state: any) => state.modal.edit.title);
+  const description = useSelector((state: any) => state.modal.edit.description);
+  const id = useSelector((state: any) => state.modal.edit.id);
   const handleClose = () => {
     dispatch(editClose());
   };
@@ -17,7 +15,7 @@ const EditTask: React.FC<EditTaskProps> = ({ id, title, description }) => {
   };
   return (
     <section
-      className="absolute h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"
+      className="fixed h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"
       onClick={handleClose}
     >
       <div
@@ -47,6 +45,7 @@ const EditTask: React.FC<EditTaskProps> = ({ id, title, description }) => {
             name="description"
             id="description"
             defaultValue={description}
+            placeholder="Optional"
             className="border-2 border-green-700 rounded-md text-center col-span-2"
           />
           <button className="bg-green-700 text-white rounded-md col-span-3 p-3 hover:bg-green-600 duration-300">

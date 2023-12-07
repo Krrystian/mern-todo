@@ -28,7 +28,7 @@ const PasswordTodo = () => {
   };
   return (
     <section
-      className="absolute h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"
+      className="fixed h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"
       onClick={handleClose}
     >
       <div
