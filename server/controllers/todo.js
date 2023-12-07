@@ -163,8 +163,6 @@ export const newTask = async (req, res) => {
       progressInclude: format,
       progressStage: stage,
     });
-    console.log(todoList);
-    console.log(stage);
     todoList[stage].push(task);
     await task.save();
     await todoList.save();

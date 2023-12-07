@@ -34,7 +34,7 @@ const Navbar = () => {
   }, [hamburger]);
 
   return (
-    <section className="w-full h-[6%] flex items-center gap-1 justify-between lg:justify-end px-5 border-b-2 relative">
+    <section className="w-full h-[4vh] flex items-center gap-1 justify-between lg:justify-end px-5 border-b-2 relative">
       <div
         className="cursor-pointer lg:hidden"
         onClick={() => isHamburger((prev) => !prev)}

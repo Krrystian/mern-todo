@@ -6,7 +6,6 @@ import {
   sharingOpen,
   titleOpen,
 } from "../state/modal";
-
 const TodoBar = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state: any) => state.user.todoList);
@@ -29,7 +28,7 @@ const TodoBar = () => {
   };
 
   return lists.length > 0 && todo && selected ? (
-    <section className=" w-full flex gap-2 justify-center items-center p-3 text-xs  md:text-base lg:p-6">
+    <section className="w-full flex gap-2 justify-center items-center p-3 text-xs  md:text-base lg:p-6">
       <div
         className="p-2 md:min-w-[100px] border-2 border-green-700 rounded-full cursor-pointer bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
         onClick={handleNew}

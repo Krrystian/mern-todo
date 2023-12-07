@@ -79,9 +79,9 @@ const ToDo = () => {
     const intervalId = setInterval(fetchData, 1000 * 60 * 15);
     return () => clearInterval(intervalId);
   }, []);
-
+  //fix screen size
   return token ? (
-    <div className="overflow-hidden h-screen w-screen">
+    <div className="min-h-[96vh] w-screen">
       {newTodo && <NewTodo />}
       {joinTodo && <JoinTodo />}
       {sharing && <SharingList />}
@@ -89,16 +89,15 @@ const ToDo = () => {
       {password && <PasswordTodo />}
       {newTask && <NewTask />}
       <Navbar />
-      <div className="flex w-full h-full">
+      <div className="flex w-full">
         <TodoList />
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full">
           <TodoBar />
           <TaskList />
         </div>
       </div>
     </div>
   ) : (
-    //Simple unauthorized access module
     <div className="w-screen h-screen flex gap-3 justify-center items-center flex-col cursor-default">
       <h2 className="font-extrabold text-3xl w-screen text-center">
         Unauthorized access

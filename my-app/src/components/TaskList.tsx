@@ -8,7 +8,7 @@ const TaskList = () => {
   const user = useSelector((state: any) => state.user.todo);
   return (
     <div
-      className={`grid grid-cols-3 h-full ${
+      className={`md:grid h-full ${
         inProgress.length === 0 ? "grid-cols-2" : "grid-cols-3"
       }`}
     >

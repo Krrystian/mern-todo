@@ -74,7 +74,7 @@ const TodoList = () => {
   };
   return (
     <div
-      className={`flex-col h-[94%] w-[30%] overflow-hidden lg:flex ${
+      className={`flex-col min-h-[96vh] w-[30%] overflow-hidden lg:flex transition-all duration-100 ${
         menuBar ? "hidden" : "flex z-10 absolute w-full bg-white"
       }`}
     >
@@ -89,7 +89,6 @@ const TodoList = () => {
           onChange={handleChange}
         />
       </div>
-
       {isNotEmptyArray(todos) ? (
         <div className="w-full h-full flex flex-col">
           {todos.map((todo: any) => {
@@ -104,15 +103,19 @@ const TodoList = () => {
             return (
               <div
                 key={todo._id}
-                className={`flex justify-between p-3 cursor-pointer hover:bg-white hover:shadow-[0px_0px_5px_5px_#15803d] rounded-l-full transition-all duration-300 hover:z-20
+                className={`flex justify-between p-3 cursor-pointer hover:bg-white hover:shadow-[0px_0px_5px_5px_#15803d] transition-all ${
+                  menuBar ? "rounded-l-full" : "rounded-full"
+                } duration-300 hover:z-20
               ${
                 isSelected
                   ? `bg-white border-green-700 ${
                       menuBar
-                        ? "border-y-4 border-l-4 rounded-l-full"
+                        ? "border-y-4 border-l-4"
                         : "border-4 rounded-full"
                     }`
-                  : ` border-green-700 ${menuBar ? "border-r-4" : ""}`
+                  : ` border-green-700 ${
+                      menuBar ? "border-r-4" : "border-none"
+                    }`
               }`}
                 onClick={() => handleSelect(todo)}
               >

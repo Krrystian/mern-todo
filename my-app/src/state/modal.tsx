@@ -59,52 +59,68 @@ export const modelSlice = createSlice({
   initialState,
   reducers: {
     loadingOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.loading.isLoading = true;
     },
     loadingClose: (state) => {
+      document.body.style.overflow = "unset";
       state.loading.isLoading = false;
     },
     newTodoOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.newTodo.isOpen = true;
     },
     newTodoClose: (state) => {
+      document.body.style.overflow = "unset";
       state.newTodo.isOpen = false;
     },
     newTodoJoinOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.joinNewTodo.isOpen = true;
     },
     newTodoJoinClose: (state) => {
+      document.body.style.overflow = "unset";
       state.joinNewTodo.isOpen = false;
     },
     sharingOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.sharing.isOpen = true;
     },
     sharingClose: (state) => {
+      document.body.style.overflow = "unset";
       state.sharing.isOpen = false;
     },
     titleOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.title.isOpen = true;
     },
     titleClose: (state) => {
+      document.body.style.overflow = "unset";
       state.title.isOpen = false;
     },
     passwordOpen: (state) => {
+      document.body.style.overflow = "hidden";
       state.password.isOpen = true;
     },
     passwordClose: (state) => {
+      document.body.style.overflow = "unset";
       state.password.isOpen = false;
     },
     newTaskOpen: (state) => {
       state.newTask.isOpen = true;
+      document.body.style.overflow = "hidden";
     },
     newTaskClose: (state) => {
       state.newTask.isOpen = false;
+      document.body.style.overflow = "unset";
     },
     menuOpen: (state) => {
       state.menuBar.isOpen = true;
+      document.body.style.overflow = "unset";
     },
     menuClose: (state) => {
       state.menuBar.isOpen = false;
+      document.body.style.overflow = "hidden";
     },
   },
 });
