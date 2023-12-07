@@ -3,6 +3,7 @@ import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { newTaskClose } from "../../state/modal";
 import { updateTasks } from "../../state/user";
+import { toast } from "react-toastify";
 
 const NewTask = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,28 @@ const NewTask = () => {
       const data = await response.json();
       dispatch(updateTasks(data));
       dispatch(newTaskClose());
+      toast.success("Task has been created!", {
+        position: "bottom-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      dispatch(newTaskClose());
+      toast.error("Something went wrong!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   const [isChecked, setIsChecked] = useState<boolean>(false);

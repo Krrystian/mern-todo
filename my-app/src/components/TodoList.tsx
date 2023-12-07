@@ -168,6 +168,7 @@ const TodoList = () => {
           </div>
         </div>
       ) : (
+        //check and fix for no websites
         <div
           className={`w-full h-full flex flex-col justify-center items-center border-green-700 ${
             menuBar ? "border-r-4" : "border-none"

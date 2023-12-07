@@ -1,6 +1,7 @@
 import React from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-
+import { useDispatch } from "react-redux";
+import { editOpen } from "../state/modal";
 interface TaskProps {
   title: string;
   description: string;
@@ -15,6 +16,10 @@ const Task: React.FC<TaskProps> = ({
   _id,
   color,
 }) => {
+  const dispatch = useDispatch();
+  const handleEdit = () => {
+    dispatch(editOpen({ id: _id, description, title }));
+  };
   return (
     <div
       className={`p-3 w-[90%] rounded-md my-2 ${
@@ -29,7 +34,10 @@ const Task: React.FC<TaskProps> = ({
       <p>{description}</p>
       <div className="flex justify-between">
         <div className="flex">
-          <button className="bg-green-500 p-1 rounded-md w-[75px] mr-3">
+          <button
+            className="bg-green-500 p-1 rounded-md w-[75px] mr-3"
+            onClick={handleEdit}
+          >
             Edit
           </button>
           <button className="bg-red-500 p-1 rounded-md w-[75px]">Delete</button>

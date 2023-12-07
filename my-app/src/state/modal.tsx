@@ -25,6 +25,12 @@ interface CounterState {
   menuBar: {
     isOpen: boolean;
   };
+  edit: {
+    isOpen: boolean;
+    id: string;
+    title: string;
+    description: string;
+  };
 }
 
 const initialState: CounterState = {
@@ -51,6 +57,12 @@ const initialState: CounterState = {
   },
   menuBar: {
     isOpen: false,
+  },
+  edit: {
+    isOpen: false,
+    title: "",
+    description: "",
+    id: "",
   },
 };
 
@@ -122,6 +134,17 @@ export const modelSlice = createSlice({
       state.menuBar.isOpen = false;
       document.body.style.overflow = "hidden";
     },
+    editOpen: (state, action) => {
+      state.edit.isOpen = true;
+      state.edit.id = action.payload.id;
+      state.edit.description = action.payload.description;
+      state.edit.title = action.payload.title;
+      document.body.style.overflow = "hidden";
+    },
+    editClose: (state) => {
+      state.edit.isOpen = false;
+      document.body.style.overflow = "unset";
+    },
   },
 });
 
@@ -142,5 +165,7 @@ export const {
   newTaskClose,
   menuOpen,
   menuClose,
+  editClose,
+  editOpen,
 } = modelSlice.actions;
 export default modelSlice.reducer;
