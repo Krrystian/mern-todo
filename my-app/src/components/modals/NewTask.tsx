@@ -74,7 +74,7 @@ const NewTask = () => {
             onSubmit={handleSubmit}
           >
             <label htmlFor="title" className="p-2">
-              Name
+              Title
             </label>
             <input
               type="text"

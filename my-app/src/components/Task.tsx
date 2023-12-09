@@ -5,7 +5,7 @@ import { deleteOpen, editOpen } from "../state/modal";
 interface TaskProps {
   title: string;
   description: string;
-  progress: boolean;
+  progressInclude: boolean;
   _id: string;
   color: string;
   progressStage: string;
@@ -13,14 +13,22 @@ interface TaskProps {
 const Task: React.FC<TaskProps> = ({
   title,
   description,
-  progress,
+  progressInclude,
   _id,
   color,
   progressStage,
 }) => {
   const dispatch = useDispatch();
   const handleEdit = () => {
-    dispatch(editOpen({ id: _id, description, title }));
+    dispatch(
+      editOpen({
+        id: _id,
+        description,
+        title,
+        task: progressInclude,
+        progressStage: progressStage,
+      })
+    );
   };
   const handleDelete = () => {
     dispatch(deleteOpen({ id: _id, task: true, progressStage: progressStage }));

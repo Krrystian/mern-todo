@@ -30,6 +30,8 @@ interface CounterState {
     id: string;
     title: string;
     description: string;
+    task: boolean;
+    progressStage: string;
   };
   delete: {
     isOpen: boolean;
@@ -69,6 +71,8 @@ const initialState: CounterState = {
     title: "",
     description: "",
     id: "",
+    task: false,
+    progressStage: "",
   },
   delete: {
     isOpen: false,
@@ -151,6 +155,8 @@ export const modelSlice = createSlice({
       state.edit.id = action.payload.id;
       state.edit.description = action.payload.description;
       state.edit.title = action.payload.title;
+      state.edit.task = action.payload.task;
+      state.edit.progressStage = action.payload.progressStage;
       document.body.style.overflow = "hidden";
     },
     editClose: (state) => {
