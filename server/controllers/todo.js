@@ -183,12 +183,55 @@ export const removeTask = async (req, res) => {
     const { id } = req.body;
     const task = await TodoElement.findByIdAndRemove(id);
     if (!task) {
-      return res.status(404).json({ message: "Todo list not found" });
+      return res.status(404).json({ message: "Task not found" });
     }
-    return res.status(200).json({ message: "Todo list removed" });
+    return res.status(200).json({ message: "Task removed" });
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }
 };
-export const updateTask = async (req, res) => {};
-export const changeTaskStatus = async (req, res) => {};
+export const updateTask = async (req, res) => {
+  try {
+    const { id, title, description, stage, format } = req.body;
+    const task = TodoElement.findById(id);
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    task.title = title;
+    task.description = description;
+    task.progressStage = stage;
+    task.progressInclude = format;
+    await task.save();
+    const serializeTask = {
+      _id: task._id,
+      title: task.title,
+      description: task.description,
+      progressInclude: task.progressInclude,
+      progressStage: task.progressStage,
+    };
+    return res.status(200).json(serializeTask);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+export const changeTaskStatus = async (req, res) => {
+  try {
+    const { id, stage } = req.body;
+    const task = TodoElement.findById(id);
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    task.progressStage = stage;
+    await task.save();
+    const serializeTask = {
+      _id: task._id,
+      title: task.title,
+      description: task.description,
+      progressInclude: task.progressInclude,
+      progressStage: task.progressStage,
+    };
+    return res.status(200).json(serializeTask);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
