@@ -149,7 +149,7 @@ export const changePassword = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
-
+//============================================TASK=======================================================
 export const newTask = async (req, res) => {
   try {
     const { title, description, stage, format, id } = req.body;
@@ -178,3 +178,17 @@ export const newTask = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
+export const removeTask = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const task = await TodoElement.findByIdAndRemove(id);
+    if (!task) {
+      return res.status(404).json({ message: "Todo list not found" });
+    }
+    return res.status(200).json({ message: "Todo list removed" });
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+export const updateTask = async (req, res) => {};
+export const changeTaskStatus = async (req, res) => {};

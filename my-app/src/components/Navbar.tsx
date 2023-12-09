@@ -6,6 +6,7 @@ import { GrClose } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../state/user";
 import { menuClose, menuOpen } from "../state/modal";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const user = useSelector((state: any) => state.user);
@@ -15,18 +16,37 @@ const Navbar = () => {
   const [hamburger, isHamburger] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleLogout = async () => {
-    const response = await fetch("http://localhost:5000/logout", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+    await toast.promise(
+      fetch("http://localhost:5000/logout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        credentials: "include",
+      }).then(async (response) => {
+        if (!response.ok) {
+          return Promise.reject("Something went wrong!");
+        }
+        navigate("/");
+        dispatch(setCredentials({ token: "", email: "", username: "" }));
+      }),
+      {
+        pending: "Logging out...",
+        success: "Logged out successfully!",
+        error: "Something went wrong!",
       },
-      credentials: "include",
-    });
-    if (response.ok) {
-      navigate("/");
-      dispatch(setCredentials({ token: "", email: "", username: "" }));
-    }
+      {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
   };
 
   useEffect(() => {

@@ -1,9 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
-import { newTodoClose, newTodoJoinOpen, newTodoOpen } from "../state/modal";
+import {
+  deleteOpen,
+  newTodoClose,
+  newTodoJoinOpen,
+  newTodoOpen,
+} from "../state/modal";
 import { useEffect, useState } from "react";
 import { deleteTodo, setSelected, setTodo, setTodos } from "../state/user";
+import { toast } from "react-toastify";
 
 const TodoList = () => {
   const todos = useSelector((state: any) => state.user.todoList);
@@ -56,21 +62,7 @@ const TodoList = () => {
 
   const handleDelete = async (e: any, id: string) => {
     e.stopPropagation();
-    const response = await fetch("http://localhost:5000/todo/removeTodoList", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ id: id }),
-    });
-    if (response.ok) {
-      dispatch(deleteTodo(id));
-      if (selected === id) {
-        dispatch(setSelected(""));
-        dispatch(setTodo(""));
-      }
-    }
+    dispatch(deleteOpen(id));
   };
   return (
     <div

@@ -35,6 +35,7 @@ interface CounterState {
     isOpen: boolean;
     id: string;
     task: boolean;
+    progressStage: string;
   };
 }
 
@@ -73,6 +74,7 @@ const initialState: CounterState = {
     isOpen: false,
     id: "",
     task: false,
+    progressStage: "",
   },
 };
 
@@ -93,7 +95,7 @@ export const modelSlice = createSlice({
       state.newTodo.isOpen = true;
     },
     newTodoClose: (state) => {
-      document.body.style.overflow = "unset";
+      if (state.menuBar.isOpen) document.body.style.overflow = "unset";
       state.newTodo.isOpen = false;
     },
     newTodoJoinOpen: (state) => {
@@ -101,7 +103,7 @@ export const modelSlice = createSlice({
       state.joinNewTodo.isOpen = true;
     },
     newTodoJoinClose: (state) => {
-      document.body.style.overflow = "unset";
+      if (state.menuBar.isOpen) document.body.style.overflow = "unset";
       state.joinNewTodo.isOpen = false;
     },
     sharingOpen: (state) => {
@@ -157,12 +159,14 @@ export const modelSlice = createSlice({
     },
     deleteOpen: (state, action) => {
       state.delete.isOpen = true;
-      state.delete.id = action.payload;
+      state.delete.id = action.payload.id;
+      state.delete.task = action.payload.task;
+      state.delete.progressStage = action.payload.progressStage;
       document.body.style.overflow = "hidden";
     },
     deleteClose: (state) => {
       state.delete.isOpen = false;
-      document.body.style.overflow = "unset";
+      if (state.menuBar.isOpen) document.body.style.overflow = "unset";
     },
   },
 });

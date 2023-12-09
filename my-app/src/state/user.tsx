@@ -85,6 +85,22 @@ export const userSlice = createSlice({
         });
       }
     },
+
+    deleteTask: (state, action) => {
+      if (action.payload.progressStage === "uncompleted") {
+        state.todo.uncompleted = state.todo.uncompleted.filter(
+          (task: any) => task._id !== action.payload.id
+        );
+      } else if (action.payload.progressStage === "inProgress") {
+        state.todo.inProgress = state.todo.inProgress.filter(
+          (task: any) => task._id !== action.payload.id
+        );
+      } else {
+        state.todo.completed = state.todo.completed.filter(
+          (task: any) => task._id !== action.payload.id
+        );
+      }
+    },
   },
 });
 
@@ -98,5 +114,6 @@ export const {
   setSelected,
   titleUpdate,
   updateTasks,
+  deleteTask,
 } = userSlice.actions;
 export default userSlice.reducer;

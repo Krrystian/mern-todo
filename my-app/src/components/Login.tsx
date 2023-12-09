@@ -31,13 +31,11 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
           }),
         }).then(async (response) => {
           if (!response.ok) {
-            dispatch(loadingClose());
             return Promise.reject("Invalid credentials");
           }
           const data = await response.json();
           dispatch(setCredentials(data));
           navigate("/todo");
-          dispatch(loadingClose());
         }),
         {
           pending: "Logging in...",
@@ -56,6 +54,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
         }
       )
       .catch(() => {});
+    dispatch(loadingClose());
   };
 
   const handleRegister = useCallback(() => {

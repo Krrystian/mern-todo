@@ -8,6 +8,7 @@ interface TaskProps {
   progress: boolean;
   _id: string;
   color: string;
+  progressStage: string;
 }
 const Task: React.FC<TaskProps> = ({
   title,
@@ -15,13 +16,14 @@ const Task: React.FC<TaskProps> = ({
   progress,
   _id,
   color,
+  progressStage,
 }) => {
   const dispatch = useDispatch();
   const handleEdit = () => {
     dispatch(editOpen({ id: _id, description, title }));
   };
   const handleDelete = () => {
-    dispatch(deleteOpen({ id: _id, task: true }));
+    dispatch(deleteOpen({ id: _id, task: true, progressStage: progressStage }));
   };
   return (
     <div
