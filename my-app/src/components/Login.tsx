@@ -19,43 +19,43 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     dispatch(loadingOpen());
 
     const { email, password } = e.target.elements;
-    const response = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(setCredentials(data));
-      toast.success("Logged in", {
-        position: "bottom-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      navigate("/todo");
-    }
-    if (!response.ok) {
-      toast.error("Invalid credentials", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    dispatch(loadingClose());
+    await toast
+      .promise(
+        fetch("http://localhost:5000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+        }).then(async (response) => {
+          if (!response.ok) {
+            dispatch(loadingClose());
+            return Promise.reject("Invalid credentials");
+          }
+          const data = await response.json();
+          dispatch(setCredentials(data));
+          navigate("/todo");
+          dispatch(loadingClose());
+        }),
+        {
+          pending: "Logging in...",
+          success: "Logged in",
+          error: "Invalid credentials",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
   };
 
   const handleRegister = useCallback(() => {

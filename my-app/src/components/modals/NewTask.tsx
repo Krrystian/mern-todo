@@ -15,47 +15,46 @@ const NewTask = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { title, description, stage, format } = e.target;
-    const response = await fetch("http://localhost:5000/todo/newTask", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        title: title.value,
-        description: description.value,
-        stage: stage.value,
-        format: format.checked,
-        id: todo._id,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(updateTasks(data));
-      dispatch(newTaskClose());
-      toast.success("Task has been created!", {
-        position: "bottom-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      dispatch(newTaskClose());
-      toast.error("Something went wrong!", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    await toast
+      .promise(
+        fetch("http://localhost:5000/todo/newTask", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            title: title.value,
+            description: description.value,
+            stage: stage.value,
+            format: format.checked,
+            id: todo._id,
+          }),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          const data = await response.json();
+          dispatch(updateTasks(data));
+          dispatch(newTaskClose());
+        }),
+        {
+          pending: "Creating new task...",
+          success: "New task created",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
   };
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("uncompleted");

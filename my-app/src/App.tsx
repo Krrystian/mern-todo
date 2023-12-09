@@ -20,7 +20,7 @@ export default function App() {
           <Route path="/todo" element={<ToDo />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer limit={2} transition={Flip} />
+      <ToastContainer limit={3} transition={Flip} />
     </Suspense>
   );
 }

@@ -3,6 +3,7 @@ import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { sharingClose } from "../../state/modal";
 import { BiCopyAlt } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const SharingList = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,16 @@ const SharingList = () => {
   };
   const copyToClipboard = () => {
     navigator.clipboard.writeText(todo._id);
+    toast.success("Copied to clipboard", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
   return (
     <section

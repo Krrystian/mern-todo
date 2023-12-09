@@ -3,6 +3,7 @@ import Input from "./Input";
 import { useCallback } from "react";
 import { loadingClose, loadingOpen } from "../state/modal";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 interface RegisterProps {
   setLogin: (value: boolean) => void;
@@ -20,22 +21,53 @@ const Register: React.FC<RegisterProps> = ({ setLogin }) => {
     const { email, username, password, password2 } = e.target.elements;
     dispatch(loadingOpen());
     if (password.value !== password2.value) {
-      return alert("Passwords don't match"); //tostify replacement later
-    }
-    const response = await fetch("http://localhost:5000/user/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email.value,
-        username: username.value,
-        password: password.value,
-      }),
-    });
-    if (response.ok) {
-      alert("Account created! Please login");
       dispatch(loadingClose());
-      window.location.reload();
+      return toast.error("Passwords do not match. Please try again.", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }); //tostify replacement later
     }
+    await toast
+      .promise(
+        fetch("http://localhost:5000/user/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.value,
+            username: username.value,
+            password: password.value,
+          }),
+        }).then(async (response) => {
+          if (!response.ok) {
+            dispatch(loadingClose());
+            return Promise.reject("Something went wrong");
+          }
+          dispatch(loadingClose());
+          window.location.reload();
+        }),
+        {
+          pending: "Creating account...",
+          success: "Account created",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
   };
 
   return (

@@ -2,6 +2,7 @@ import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTodos } from "../../state/user";
 import { newTodoClose } from "../../state/modal";
+import { toast } from "react-toastify";
 
 const NewTodo = () => {
   const user = useSelector((state: any) => state.user);
@@ -12,23 +13,44 @@ const NewTodo = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { title, password } = e.target.elements;
-    const response = await fetch("http://localhost:5000/todo/newTodoList", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        title: title.value,
-        password: password.value,
-        id: user.id,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(updateTodos(data));
-      dispatch(newTodoClose());
-    }
+    await toast
+      .promise(
+        fetch("http://localhost:5000/todo/newTodoList", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            title: title.value,
+            password: password.value,
+            id: user.id,
+          }),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          const data = await response.json();
+          dispatch(updateTodos(data));
+          dispatch(newTodoClose());
+        }),
+        {
+          pending: "Creating new todo...",
+          success: "New todo created",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
   };
 
   return (

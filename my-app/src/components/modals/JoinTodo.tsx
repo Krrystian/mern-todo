@@ -2,6 +2,7 @@ import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { newTodoJoinClose } from "../../state/modal";
 import { updateTodos } from "../../state/user";
+import { toast } from "react-toastify";
 
 const JoinTodo = () => {
   const dispatch = useDispatch();
@@ -12,24 +13,47 @@ const JoinTodo = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { code, password } = e.target.elements;
-    const response = await fetch("http://localhost:5000/todo/joinTodoList", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        id: user.id,
-        code: code.value,
-        password: password.value,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(updateTodos(data));
-      dispatch(newTodoJoinClose());
-    }
+
+    await toast
+      .promise(
+        fetch("http://localhost:5000/todo/joinTodoList", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            id: user.id,
+            code: code.value,
+            password: password.value,
+          }),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          const data = await response.json();
+          dispatch(updateTodos(data));
+          dispatch(newTodoJoinClose());
+        }),
+        {
+          pending: "Joining todo...",
+          success: "Todo joined",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
   };
+
   return (
     <section
       className="fixed h-screen w-screen overflow-hidden flex justify-center items-center z-50 bg-black/50"

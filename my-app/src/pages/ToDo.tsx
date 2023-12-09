@@ -13,6 +13,7 @@ import PasswordTodo from "../components/modals/PasswordTodo";
 import NewTask from "../components/modals/NewTask";
 import { Link } from "react-router-dom";
 import EditTask from "../components/modals/EditTask";
+import DeleteModal from "../components/modals/DeleteModal";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
@@ -23,6 +24,7 @@ const ToDo = () => {
   const title = useSelector((state: any) => state.modal.title.isOpen);
   const password = useSelector((state: any) => state.modal.password.isOpen);
   const editTask = useSelector((state: any) => state.modal.edit.isOpen);
+  const deleteTask = useSelector((state: any) => state.modal.delete.isOpen);
   const tokenRef = useRef(token);
 
   // Update the ref when the token changes
@@ -91,6 +93,7 @@ const ToDo = () => {
       {password && <PasswordTodo />}
       {newTask && <NewTask />}
       {editTask && <EditTask />}
+      {deleteTask && <DeleteModal />}
       <Navbar />
       <div className="flex w-full min-h-[96vh]">
         <TodoList />

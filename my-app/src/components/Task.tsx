@@ -1,7 +1,7 @@
 import React from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { editOpen } from "../state/modal";
+import { deleteOpen, editOpen } from "../state/modal";
 interface TaskProps {
   title: string;
   description: string;
@@ -19,6 +19,9 @@ const Task: React.FC<TaskProps> = ({
   const dispatch = useDispatch();
   const handleEdit = () => {
     dispatch(editOpen({ id: _id, description, title }));
+  };
+  const handleDelete = () => {
+    dispatch(deleteOpen({ id: _id, task: true }));
   };
   return (
     <div
@@ -40,7 +43,12 @@ const Task: React.FC<TaskProps> = ({
           >
             Edit
           </button>
-          <button className="bg-red-500 p-1 rounded-md w-[75px]">Delete</button>
+          <button
+            className="bg-red-500 p-1 rounded-md w-[75px]"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
         </div>
         <div className="flex gap-3">
           <div className="flex items-center w-[30px] cursor-pointer bg-blue-400 justify-center rounded-md">
