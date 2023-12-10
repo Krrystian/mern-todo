@@ -32,7 +32,6 @@ const TitleTodo = () => {
           }
           const data = await response.json();
           dispatch(titleUpdate(data));
-          dispatch(setTodo(data));
           dispatch(titleClose());
         }),
         {

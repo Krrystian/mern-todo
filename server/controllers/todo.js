@@ -190,7 +190,6 @@ export const removeTask = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
-
 export const updateTask = async (req, res) => {
   try {
     const {

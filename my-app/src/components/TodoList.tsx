@@ -8,8 +8,7 @@ import {
   newTodoOpen,
 } from "../state/modal";
 import { useEffect, useState } from "react";
-import { deleteTodo, setSelected, setTodo, setTodos } from "../state/user";
-import { toast } from "react-toastify";
+import { setSelected, setTodo, setTodos } from "../state/user";
 
 const TodoList = () => {
   const todos = useSelector((state: any) => state.user.todoList);

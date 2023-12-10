@@ -46,6 +46,7 @@ export const userSlice = createSlice({
         }
         return todo;
       });
+      state.todo.title = action.payload.title;
     },
     setTodo: (state, action) => {
       state.todo = action.payload;
@@ -135,7 +136,6 @@ export const userSlice = createSlice({
         ...state.todo[action.payload.progressStage],
         updatedTask,
       ];
-      console.log(state.todo);
     },
   },
 });
