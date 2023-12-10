@@ -190,12 +190,31 @@ export const removeTask = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
+
 export const updateTask = async (req, res) => {
   try {
-    const { id, title, description, stage, format } = req.body;
-    const task = TodoElement.findById(id);
+    const {
+      id,
+      title,
+      description,
+      stage,
+      format,
+      currentStage,
+      selectedList,
+    } = req.body;
+    const task = await TodoElement.findById(id);
+    const todoList = await TodoList.findById(selectedList);
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
+    }
+    if (!todoList) {
+      return res.status(404).json({ message: "Todo list not found" });
+    }
+    if (currentStage !== stage) {
+      const index = todoList[currentStage].indexOf(id);
+      todoList[currentStage].splice(index, 1);
+      todoList[stage].push(id);
+      await todoList.save();
     }
     task.title = title;
     task.description = description;
@@ -214,6 +233,7 @@ export const updateTask = async (req, res) => {
     return res.status(403).json({ message: error.message });
   }
 };
+
 export const changeTaskStatus = async (req, res) => {
   try {
     const { id, stage } = req.body;

@@ -6,18 +6,23 @@ import { toast } from "react-toastify";
 import { updateTask } from "../../state/user";
 const EditTask = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.user.token);
   const title = useSelector((state: any) => state.modal.edit.title);
   const description = useSelector((state: any) => state.modal.edit.description);
   const id = useSelector((state: any) => state.modal.edit.id);
-  const stage = useSelector((state: any) => state.modal.edit.progressStage);
+  const currentStage = useSelector(
+    (state: any) => state.modal.edit.progressStage
+  );
   const format = useSelector((state: any) => state.modal.edit.task);
+  const selectedList = useSelector((state: any) => state.user.todo._id);
   const [isChecked, setIsChecked] = useState<boolean>(format);
-  const [selectedOption, setSelectedOption] = useState<string>(stage);
+  const [selectedOption, setSelectedOption] = useState<string>(currentStage);
 
   const handleClose = () => {
     dispatch(editClose());
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     const title = (document.getElementById("title") as HTMLInputElement).value;
     const description = (
       document.getElementById("description") as HTMLInputElement
@@ -31,14 +36,16 @@ const EditTask = () => {
       description,
       stage,
       format,
+      selectedList,
+      currentStage,
     };
-
     await toast
       .promise(
-        fetch("http://localhost:3001/todo/updateTask", {
+        fetch("http://localhost:5000/todo/updateTask", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }).then(async (response) => {
@@ -46,7 +53,16 @@ const EditTask = () => {
             return Promise.reject("Something went wrong");
           }
           const data = await response.json();
-          dispatch(updateTask(data));
+          dispatch(
+            updateTask({
+              id: data._id,
+              title: data.title,
+              description: data.description,
+              progressStage: data.progressStage,
+              format: data.progressInclude,
+              stage: currentStage,
+            })
+          );
         }),
         {
           pending: "Editing task...",
@@ -110,7 +126,7 @@ const EditTask = () => {
             name="format"
             id="format"
             defaultChecked={format}
-            disabled={stage === "inProgress"}
+            disabled={currentStage === "inProgress"}
             onClick={(e: any) => {
               setIsChecked(e.target.checked);
               setSelectedOption(

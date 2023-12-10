@@ -21,7 +21,8 @@ const DeleteModal = () => {
   const handleClose = () => {
     dispatch(deleteClose());
   };
-  const handleDelete = async () => {
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
     if (!task) {
       await toast
         .promise(
