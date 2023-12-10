@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { editClose } from "../../state/modal";
+import { toast } from "react-toastify";
+import { updateTask } from "../../state/user";
 const EditTask = () => {
   const dispatch = useDispatch();
   const title = useSelector((state: any) => state.modal.edit.title);
@@ -15,8 +17,55 @@ const EditTask = () => {
   const handleClose = () => {
     dispatch(editClose());
   };
-  const handleSubmit = () => {
-    //RESTful api
+  const handleSubmit = async () => {
+    const title = (document.getElementById("title") as HTMLInputElement).value;
+    const description = (
+      document.getElementById("description") as HTMLInputElement
+    ).value;
+    const stage = (document.getElementById("stage") as HTMLInputElement).value;
+    const format = (document.getElementById("format") as HTMLInputElement)
+      .checked;
+    const data = {
+      id,
+      title,
+      description,
+      stage,
+      format,
+    };
+
+    await toast
+      .promise(
+        fetch("http://localhost:3001/todo/updateTask", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          const data = await response.json();
+          dispatch(updateTask(data));
+        }),
+        {
+          pending: "Editing task...",
+          success: "Task edited!",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch(() => {});
+    dispatch(editClose());
   };
   return (
     <section

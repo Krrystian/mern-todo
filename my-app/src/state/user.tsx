@@ -101,6 +101,138 @@ export const userSlice = createSlice({
         );
       }
     },
+    updateTask: (state, action) => {
+      if (action.payload.progressStage === "uncompleted") {
+        state.todo.uncompleted = state.todo.uncompleted.map((task: any) => {
+          if (task._id === action.payload.id) {
+            task.title = action.payload.title;
+            task.description = action.payload.description;
+            task.format = action.payload.format;
+            if ((task.stage = action.payload.stage)) {
+              task.stage = action.payload.stage;
+              switch (action.payload.stage) {
+                case "uncompleted":
+                  state.todo.uncompleted = state.todo.uncompleted.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.uncompleted = [
+                    ...state.todo.uncompleted,
+                    action.payload,
+                  ];
+                  break;
+                case "inProgress":
+                  state.todo.inProgress = state.todo.inProgress.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.inProgress = [
+                    ...state.todo.inProgress,
+                    action.payload,
+                  ];
+                  break;
+                case "completed":
+                  state.todo.completed = state.todo.completed.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.completed = [
+                    ...state.todo.completed,
+                    action.payload,
+                  ];
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          return task;
+        });
+      } else if (action.payload.progressStage === "inProgress") {
+        state.todo.inProgress = state.todo.inProgress.map((task: any) => {
+          if (task._id === action.payload.id) {
+            task.title = action.payload.title;
+            task.description = action.payload.description;
+            task.format = action.payload.format;
+            if ((task.stage = action.payload.stage)) {
+              task.stage = action.payload.stage;
+              switch (action.payload.stage) {
+                case "uncompleted":
+                  state.todo.uncompleted = state.todo.uncompleted.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.uncompleted = [
+                    ...state.todo.uncompleted,
+                    action.payload,
+                  ];
+                  break;
+                case "inProgress":
+                  state.todo.inProgress = state.todo.inProgress.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.inProgress = [
+                    ...state.todo.inProgress,
+                    action.payload,
+                  ];
+                  break;
+                case "completed":
+                  state.todo.completed = state.todo.completed.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.completed = [
+                    ...state.todo.completed,
+                    action.payload,
+                  ];
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          return task;
+        });
+      } else {
+        state.todo.completed = state.todo.completed.map((task: any) => {
+          if (task._id === action.payload.id) {
+            task.title = action.payload.title;
+            task.description = action.payload.description;
+            task.format = action.payload.format;
+            if ((task.stage = action.payload.stage)) {
+              task.stage = action.payload.stage;
+              switch (action.payload.stage) {
+                case "uncompleted":
+                  state.todo.uncompleted = state.todo.uncompleted.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.uncompleted = [
+                    ...state.todo.uncompleted,
+                    action.payload,
+                  ];
+                  break;
+                case "inProgress":
+                  state.todo.inProgress = state.todo.inProgress.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.inProgress = [
+                    ...state.todo.inProgress,
+                    action.payload,
+                  ];
+                  break;
+                case "completed":
+                  state.todo.completed = state.todo.completed.filter(
+                    (task: any) => task._id !== action.payload.id
+                  );
+                  state.todo.completed = [
+                    ...state.todo.completed,
+                    action.payload,
+                  ];
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          return task;
+        });
+      }
+    },
   },
 });
 
@@ -115,5 +247,6 @@ export const {
   titleUpdate,
   updateTasks,
   deleteTask,
+  updateTask,
 } = userSlice.actions;
 export default userSlice.reducer;
