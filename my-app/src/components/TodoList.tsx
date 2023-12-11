@@ -141,14 +141,14 @@ const TodoList = () => {
             }`}
           >
             <button
-              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              className="flex m-3 bg-green-800 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-700"
               onClick={handleNewTodo}
             >
               <AiOutlinePlus className="self-center" />
               Todo
             </button>
             <button
-              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              className="flex m-3 bg-green-800 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-700"
               onClick={handleJoinTodo}
             >
               <AiOutlinePlus className="self-center" />

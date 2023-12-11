@@ -200,10 +200,10 @@ const Task: React.FC<TaskProps> = ({
     <div
       className={`p-3 w-[90%] rounded-md my-2 overflow-hidden ${
         color === "green"
-          ? "bg-green-300"
+          ? "bg-[#4e704b]"
           : color === "orange"
-          ? "bg-orange-300"
-          : "bg-gray-300"
+          ? "bg-[#593E62]"
+          : "bg-[#3e6259]"
       }`}
     >
       <h1 className="font-bold">{title}</h1>
@@ -211,13 +211,13 @@ const Task: React.FC<TaskProps> = ({
       <div className="flex justify-between">
         <div className="flex">
           <button
-            className="bg-green-500 p-1 rounded-md w-[75px] mr-3"
+            className="bg-[#5b8266] p-1 rounded-md w-[75px] mr-3"
             onClick={handleEdit}
           >
             Edit
           </button>
           <button
-            className="bg-red-500 p-1 rounded-md w-[75px]"
+            className="bg-[#c73c53] p-1 rounded-md w-[75px]"
             onClick={handleDelete}
           >
             Delete
@@ -226,7 +226,7 @@ const Task: React.FC<TaskProps> = ({
         <div className="gap-3 lg:flex hidden">
           {progressStage !== "uncompleted" && (
             <div
-              className="flex items-center w-[30px] cursor-pointer bg-blue-400 justify-center rounded-md"
+              className="flex items-center w-[30px] cursor-pointer bg-[#3E5962] justify-center rounded-md"
               onClick={handleDowngrade}
             >
               <IoIosArrowBack />
@@ -234,7 +234,7 @@ const Task: React.FC<TaskProps> = ({
           )}
           {progressStage !== "completed" && (
             <div
-              className="flex items-center w-[30px] cursor-pointer bg-blue-400 justify-center rounded-md"
+              className="flex items-center w-[30px] cursor-pointer bg-[#3E5962] justify-center rounded-md"
               onClick={handleUpgrade}
             >
               <IoIosArrowForward />
@@ -244,7 +244,7 @@ const Task: React.FC<TaskProps> = ({
         <div className="gap-2 justify-center flex  lg:hidden">
           {progressStage !== "uncompleted" && (
             <div
-              className="flex h-full items-center w-[60px] cursor-pointer bg-blue-400 justify-center rounded-md"
+              className="flex h-full items-center w-[60px] cursor-pointer bg-[#3E5962] justify-center rounded-md"
               onClick={handleDowngrade}
             >
               <IoIosArrowUp />
@@ -252,7 +252,7 @@ const Task: React.FC<TaskProps> = ({
           )}
           {progressStage !== "completed" && (
             <div
-              className="flex h-full items-center w-[60px] cursor-pointer bg-blue-400 justify-center rounded-md"
+              className="flex h-full items-center w-[60px] cursor-pointer bg-[#3E5962] justify-center rounded-md"
               onClick={handleUpgrade}
             >
               <IoIosArrowDown />
