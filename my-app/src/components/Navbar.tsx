@@ -82,14 +82,14 @@ const Navbar = () => {
         />
       </div>
       <div
-        className={`absolute bg-white translate-y-12 duration-500 transition-all right-10 ${
+        className={`absolute bg-white translate-y-8 duration-500 transition-all right-10 ${
           menu ? "opacity-100" : "opacity-0 z-[-1]"
-        }  ${menu ? " z-10" : ""}`}
+        }  ${menu ? " z-[100]" : ""}`}
       >
         <ul className="text-xl border-2 w-[150px] text-center">
-          <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
+          {/* <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
             Settings
-          </li>
+          </li> */}
           <li
             className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300"
             onClick={handleLogout}

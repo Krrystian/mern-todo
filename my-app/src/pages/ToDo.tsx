@@ -104,14 +104,17 @@ const ToDo = () => {
       </div>
     </div>
   ) : (
-    <div className="w-screen h-screen flex gap-3 justify-center items-center flex-col cursor-default">
-      <h2 className="font-extrabold text-3xl w-screen text-center">
+    <div className="w-screen bg-[#5b8266] text-[#aef6c7] h-screen flex gap-3 justify-center items-center flex-col cursor-default">
+      <h1 className="font-extrabold text-9xl w-screen text-center tracking-widest">
+        401
+      </h1>
+      <h2 className="font-extrabold text-3xl w-screen text-center tracking-widest">
         Unauthorized access
       </h2>
       <Link
         to="/"
-        className="text-black/70 text-xl max-w-screen text-center cursor-pointer
-        hover:text-blue-900 hover:scale-150 transition-all duration-300"
+        className="text-[#212922] text-xl max-w-screen text-center cursor-pointer
+        hover:text-[#294936] hover:scale-150 transition-all duration-300"
       >
         Please login or register
       </Link>

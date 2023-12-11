@@ -73,7 +73,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
         <div className="flex justify-between px-3">
           <p className="text-md cursor-default">Don't remember a password?</p>
           <p
-            className="underline cursor-pointer hover:text-green-600"
+            className="underline cursor-pointer hover:text-green-800"
             onClick={handleRegister}
           >
             Click here
@@ -81,7 +81,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
         </div>
         <button
           type="submit"
-          className="bg-green-700 text-white p-3 m-3 hover:bg-green-600 duration-500 transition-all font-medium"
+          className="bg-green-800 text-white p-3 m-3 hover:bg-green-700 duration-500 transition-all font-medium"
         >
           Continue
         </button>

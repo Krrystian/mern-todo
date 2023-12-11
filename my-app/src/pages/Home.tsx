@@ -16,7 +16,10 @@ const Home = () => {
   }, [navigate, user.token]);
 
   return (
-    <section className=" bg-blue-950 w-screen h-screen flex justify-center items-center">
+    <section className=" bg-[#212922] w-screen h-screen flex flex-col justify-center items-center relative">
+      <h1 className="absolute text-6xl font-extrabold text-white top-14 tracking-wider">
+        TODO
+      </h1>
       <div className="w-full md:w-3/5 xl:w-2/5 h-3/5  bg-white rounded-xl shadow-2xl shadow-black flex flex-col items-center justify-center">
         {loading ? (
           <Loading />
