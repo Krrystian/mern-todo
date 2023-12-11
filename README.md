@@ -17,6 +17,6 @@ NodeJS is a very popular server-side client. It is decent in terms of reliabilit
 This project is still under construction. It is missing key features and has several design errors still waiting for fixes.
 - Website still needs testing - It will be my main focus during this project to learn how to prepare React testing with JEST library.
 - UX/IU - I am not happy on the way the website looks now. I think more styling, different color sets will make it look better but for now it is working and design is not my main focus
-- Task compatibility - It is missing some tasks requests - I will take care of it sooner than later. I want the website to be available.
-- ESLint warnings - I will take care of them sooner or later.
+- Task compatibility - It is missing some tasks requests - I will take care of it sooner than later. I want the website to be available. **DONE**
+- ESLint warnings - I will take care of them sooner or later. **DONE**
 - GITHUB ReadMe - I will make updates here on progress.
