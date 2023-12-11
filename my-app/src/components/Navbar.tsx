@@ -54,7 +54,7 @@ const Navbar = () => {
   }, [hamburger]);
 
   return (
-    <section className="w-full h-[4vh] flex items-center gap-1 justify-between lg:justify-end px-5 border-b-2 relative">
+    <section className="w-full h-[8vh] flex items-center gap-1 justify-between px-5 border-b-2 border-[#AEF6C7] relative">
       <div
         className="cursor-pointer lg:hidden"
         onClick={() => isHamburger((prev) => !prev)}
@@ -62,16 +62,19 @@ const Navbar = () => {
         {hamburger ? <GrClose size={25} /> : <GiHamburgerMenu size={25} />}
       </div>
       {todoName && (
-        <div className="text-xl font-bold select-none cursor-default max-w-[20%] text-green-700 lg:hidden text-ellipsis whitespace-nowrap overflow-hidden">
+        <div className="text-xl font-bold select-none cursor-default max-w-[20%] lg:hidden text-ellipsis whitespace-nowrap overflow-hidden">
           {todoName}
         </div>
       )}
+      <h1 className="hidden lg:flex text-3xl tracking-widest font-extrabold">
+        TODO
+      </h1>
       <div className="flex gap-2 justify-center select-none">
         <h1
           className="text-2xl font-bold cursor-pointer"
           onClick={() => isMenu((prev) => !prev)}
         >
-          Hello, <span className="text-green-700">{user.username}</span>
+          Hello, <span className="text-[#1a211a]">{user.username}</span>
         </h1>
         <AiOutlineArrowLeft
           size={20}
@@ -82,16 +85,16 @@ const Navbar = () => {
         />
       </div>
       <div
-        className={`absolute bg-white translate-y-8 duration-500 transition-all right-10 ${
+        className={`absolute bg-[#294936] translate-y-[2.25rem] duration-500 transition-all right-10 ${
           menu ? "opacity-100" : "opacity-0 z-[-1]"
         }  ${menu ? " z-[100]" : ""}`}
       >
-        <ul className="text-xl border-2 w-[150px] text-center">
+        <ul className="text-xl border-2 border-[#aef6c7] w-[150px] text-center">
           {/* <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
             Settings
           </li> */}
           <li
-            className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300"
+            className="cursor-pointer px-2 hover:text-[#1a211a] hover:bg-[#5b8266] duration-300"
             onClick={handleLogout}
           >
             Logout

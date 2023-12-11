@@ -85,7 +85,7 @@ const ToDo = () => {
   }, []);
   //fix screen size
   return token ? (
-    <div className="min-h-[96vh] w-screen">
+    <div className="min-h-[92vh] w-screen bg-[#294936] text-[#AEF6C7]">
       {newTodo && <NewTodo />}
       {joinTodo && <JoinTodo />}
       {sharing && <SharingList />}
@@ -95,9 +95,9 @@ const ToDo = () => {
       {editTask && <EditTask />}
       {deleteTask && <DeleteModal />}
       <Navbar />
-      <div className="flex w-full min-h-[96vh]">
+      <div className="flex w-full min-h-[92vh]">
         <TodoList />
-        <div className="flex flex-col w-full min-h-[96vh]">
+        <div className="flex flex-col w-full min-h-[92vh]">
           <TodoBar />
           <TaskList />
         </div>
