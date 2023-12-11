@@ -1,7 +1,7 @@
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { titleClose } from "../../state/modal";
-import { setTodo, titleUpdate } from "../../state/user";
+import { titleUpdate } from "../../state/user";
 import { toast } from "react-toastify";
 
 const TitleTodo = () => {
