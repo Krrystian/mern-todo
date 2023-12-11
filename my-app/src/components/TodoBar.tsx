@@ -28,27 +28,27 @@ const TodoBar = () => {
   };
 
   return lists.length > 0 && todo && selected ? (
-    <section className="w-full flex gap-2 justify-center items-center p-3 text-xs  md:text-base lg:p-6">
+    <section className="w-full flex flex-row gap-2 justify-between bg-[#233d2d]  items-center text-sm md:text-base h-[75px] mb-6">
       <div
-        className="p-2 md:min-w-[100px] border-2 border-green-700 rounded-full cursor-pointer bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
+        className="border-[#aef6c7] text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors flex justify-center"
         onClick={handleNew}
       >
         New Task
       </div>
       <div
-        className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
+        className=" border-[#aef6c7] text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors flex justify-center"
         onClick={handleShare}
       >
         Share list
       </div>
       <div
-        className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
+        className=" border-[#aef6c7] text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors  flex justify-center"
         onClick={handleTitle}
       >
         Change title
       </div>
       <div
-        className="p-2 border-2 border-green-700 rounded-full cursor-pointer hover:bg-green-700 duration-300 transition-colors md:max-w-[150px] text-center flex justify-center"
+        className=" border-[#aef6c7] text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors flex justify-center"
         onClick={handlePassword}
       >
         Change password

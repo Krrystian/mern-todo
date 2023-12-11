@@ -70,12 +70,12 @@ const TodoList = () => {
       }`}
     >
       <div
-        className={`w-full flex justify-center border-[#aef6c7] ${
+        className={`w-full flex justify-center h-[82px] border-[#aef6c7] ${
           menuBar ? "border-r-4" : ""
         }`}
       >
         <input
-          className="w-full p-4 placeholder:font-bold font-bold text-2xl placeholder:text-[#aef6c7] bg-[#233d2d] placeholder:text-center placeholder:text-2xl my-6 text-center focus:outline-none focus:placeholder-[#233d2d]"
+          className="w-full h-full placeholder:font-bold font-bold text-2xl placeholder:text-[#aef6c7] bg-[#233d2d] placeholder:text-center placeholder:text-2xl text-center focus:outline-none focus:placeholder-[#233d2d]"
           placeholder="Your todos"
           onChange={handleChange}
         />

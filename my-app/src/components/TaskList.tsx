@@ -25,7 +25,7 @@ const TaskList = () => {
       <div
         className={progressSet ? "lg:grid grid-cols-2" : "lg:grid grid-cols-3"}
       >
-        <div className="border-r-2 items-center flex flex-col">
+        <div className=" items-center flex flex-col">
           <h1 className="text-3xl text-center w-full font-bold items-center">
             Uncompleted
           </h1>
@@ -35,7 +35,7 @@ const TaskList = () => {
             ))}
         </div>
         <div
-          className={`border-r-2 ${
+          className={` ${
             inProgress.length === 0 ? "hidden" : "flex flex-col items-center"
           }`}
         >

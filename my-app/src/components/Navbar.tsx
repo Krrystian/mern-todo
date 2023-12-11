@@ -94,7 +94,7 @@ const Navbar = () => {
             Settings
           </li> */}
           <li
-            className="cursor-pointer px-2 hover:text-[#1a211a] hover:bg-[#5b8266] duration-300"
+            className="cursor-pointer px-2  hover:bg-[#3e6259] duration-300"
             onClick={handleLogout}
           >
             Logout
