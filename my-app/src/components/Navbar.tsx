@@ -73,9 +73,13 @@ const Navbar = () => {
       <h1 className="hidden lg:flex text-3xl tracking-widest font-extrabold">
         TODO
       </h1>
-      <div className="flex gap-2 justify-center select-none">
+      <div
+        className={`flex gap-2 h-full justify-center select-none transition-all duration-300 ${
+          menu ? "lg:translate-x-0" : "lg:translate-x-[264px]"
+        }`}
+      >
         <h1
-          className="text-2xl font-bold cursor-pointer"
+          className="text-2xl font-bold cursor-pointer self-center"
           onClick={() => isMenu((prev) => !prev)}
         >
           Hello, <span className="text-[#1a211a]">{user.username}</span>
@@ -83,22 +87,35 @@ const Navbar = () => {
         <AiOutlineArrowLeft
           size={20}
           className={`duration-500 self-center transition-all cursor-pointer ${
-            menu ? "-rotate-90" : ""
+            menu ? "lg:-rotate-180 -rotate-90" : ""
           }`}
           onClick={() => isMenu((prev) => !prev)}
         />
+        <div className="hidden lg:flex mx-6 h-full items-center">
+          <ul className="h-full flex">
+            <li
+              className="cursor-pointer items-center flex text-xl px-4 h-full hover:bg-[#3e6259] duration-300"
+              onClick={handleLogout}
+            >
+              Logout
+            </li>
+            <li className="cursor-pointer items-center flex text-xl px-4 h-full hover:bg-[#3e6259] duration-300">
+              Settings
+            </li>
+          </ul>
+        </div>
       </div>
       <div
-        className={`absolute bg-[#294936] translate-y-[2.25rem] duration-500 transition-all right-10 ${
+        className={`absolute lg:hidden bg-[#294936] translate-y-[3rem] duration-500 transition-all right-10 ${
           menu ? "opacity-100" : "opacity-0 z-[-1]"
         }  ${menu ? " z-[100]" : ""}`}
       >
         <ul className="text-xl border-2 border-[#aef6c7] w-[150px] text-center">
-          {/* <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
+          <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
             Settings
-          </li> */}
+          </li>
           <li
-            className="cursor-pointer px-2  hover:bg-[#3e6259] duration-300"
+            className="cursor-pointer px-2 hover:bg-[#3e6259] duration-300"
             onClick={handleLogout}
           >
             Logout
