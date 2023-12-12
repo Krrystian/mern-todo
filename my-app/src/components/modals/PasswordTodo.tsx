@@ -1,4 +1,4 @@
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordClose } from "../../state/modal";
 import { toast } from "react-toastify";
@@ -73,7 +73,7 @@ const PasswordTodo = () => {
             Submit
           </button>
         </form>
-        <GrClose
+        <AiOutlineClose
           size={20}
           className="absolute right-3 top-3 cursor-pointer"
           onClick={handleClose}

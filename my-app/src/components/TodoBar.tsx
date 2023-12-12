@@ -48,7 +48,7 @@ const TodoBar = () => {
         Change title
       </div>
       <div
-        className=" text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors flex justify-center"
+        className="p-3 text-center w-full h-full items-center md:text-xl cursor-pointer hover:bg-[#3e6259] duration-300 transition-colors flex justify-center"
         onClick={handlePassword}
       >
         Change password

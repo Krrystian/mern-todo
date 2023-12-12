@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../state/user";
 import { menuClose, menuOpen } from "../state/modal";
@@ -59,7 +59,11 @@ const Navbar = () => {
         className="cursor-pointer lg:hidden"
         onClick={() => isHamburger((prev) => !prev)}
       >
-        {hamburger ? <GrClose size={25} /> : <GiHamburgerMenu size={25} />}
+        {hamburger ? (
+          <AiOutlineClose size={25} />
+        ) : (
+          <GiHamburgerMenu size={25} />
+        )}
       </div>
       {todoName && (
         <div className="text-xl font-bold select-none cursor-default max-w-[20%] lg:hidden text-ellipsis whitespace-nowrap overflow-hidden">

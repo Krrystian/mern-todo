@@ -1,5 +1,5 @@
 import React from "react";
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { sharingClose } from "../../state/modal";
 import { BiCopyAlt } from "react-icons/bi";
@@ -46,7 +46,7 @@ const SharingList = () => {
           </span>
         </div>
         <p>Be careful it's equal share</p>
-        <GrClose
+        <AiOutlineClose
           size={20}
           className="absolute right-3 top-3 cursor-pointer"
           onClick={handleClose}

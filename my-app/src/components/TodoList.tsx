@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlinePlus } from "react-icons/ai";
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import {
   deleteOpen,
   newTodoClose,
@@ -125,7 +125,7 @@ const TodoList = () => {
                       todo.inProgress.length}
                   </p>
                 </div>
-                <GrClose
+                <AiOutlineClose
                   size={20}
                   className="self-center cursor-pointer"
                   onClick={(e: any) => {

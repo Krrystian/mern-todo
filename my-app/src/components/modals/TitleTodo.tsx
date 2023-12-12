@@ -1,4 +1,4 @@
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { titleClose } from "../../state/modal";
 import { titleUpdate } from "../../state/user";
@@ -82,7 +82,7 @@ const TitleTodo = () => {
             </button>
           </form>
         </div>
-        <GrClose
+        <AiOutlineClose
           size={20}
           className="absolute right-3 top-3 cursor-pointer"
           onClick={handleClose}
