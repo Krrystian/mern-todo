@@ -51,7 +51,7 @@ const Navbar = () => {
 
   useEffect(() => {
     hamburger ? dispatch(menuClose()) : dispatch(menuOpen());
-  }, [hamburger]);
+  }, [hamburger, dispatch]);
 
   return (
     <section className="w-full h-[8vh] flex items-center gap-1 justify-between px-5 border-b-2 border-[#AEF6C7] relative">

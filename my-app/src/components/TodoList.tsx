@@ -17,31 +17,34 @@ const TodoList = () => {
   const menuBar = useSelector((state: any) => state.modal.menuBar.isOpen);
   const selected = useSelector((state: any) => state.user.selected);
   const dispatch = useDispatch();
-  const [titles, setTitles] = useState<string[]>([]);
+  //const [titles, setTitles] = useState<string[]>([]);
+  const titles: string[] = [];
   const [filteredTitles, setFilteredTitles] = useState<string[]>([]);
-  const getTodos = async () => {
-    const repsonse = await fetch(
-      `http://localhost:5000/todo/getTodoList?id=${user.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (repsonse.ok) {
-      const data = await repsonse.json();
-      dispatch(setTodos(data));
-      dispatch(newTodoClose());
-    }
-  };
+
   const isNotEmptyArray = (arr: any[]) => {
     return Array.isArray(arr) && arr.length > 0;
   };
   useEffect(() => {
+    const getTodos = async () => {
+      const repsonse = await fetch(
+        `http://localhost:5000/todo/getTodoList?id=${user.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (repsonse.ok) {
+        const data = await repsonse.json();
+        dispatch(setTodos(data));
+        dispatch(newTodoClose());
+      }
+    };
+
     getTodos();
-  }, []); //smth bad when remove
+  }, [dispatch, token, user.id]);
   const handleChange = (e: any) => {
     const filtered = titles.filter((title) => {
       return title.toLowerCase().includes(e.target.value.toLowerCase());

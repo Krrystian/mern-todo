@@ -29,6 +29,11 @@ const Home = () => {
           <Login setRegister={(value: boolean) => setRegister(value)} />
         )}
       </div>
+      <div className="absolute top-0 left-0 text-[#AEF6C7] lg:text-base text-sm">
+        <h1 className="font-bold">Demo accounts:</h1>
+        <p>Login: visit@visit.com Password: visit</p>
+        <p>Login: visit2@visit.com Password: visit2</p>
+      </div>
     </section>
   );
 };
