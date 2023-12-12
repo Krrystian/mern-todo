@@ -30,11 +30,11 @@ const SharingList = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-full md:w-3/5 xl:w-2/5 bg-white rounded-xl flex-col flex justify-center items-center p-2"
+        className="relative w-full md:w-3/5 xl:w-2/5 bg-[#294936] rounded-xl flex-col flex justify-center items-center p-2"
         onClick={(e: any) => e.stopPropagation()}
       >
         <h2 className="text-center text-3xl mb-3">Share your Todo</h2>
-        <div className="w-full text-md p-3 flex justify-center gap-5">
+        <div className="w-full text-md p-3 flex justify-center gap-2 ">
           Your sharing code:
           <span className="font-bold self-center flex gap-2">
             {todo._id}

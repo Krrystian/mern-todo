@@ -64,7 +64,7 @@ const NewTask = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-full md:w-3/5 xl:w-2/5 bg-white rounded-xl"
+        className="relative w-full md:w-3/5 xl:w-2/5 bg-[#294936] rounded-xl"
         onClick={(e: any) => e.stopPropagation()}
       >
         <div className="w-full p-3">
@@ -81,7 +81,7 @@ const NewTask = () => {
               name="title"
               id="title"
               required
-              className="border-2 border-green-700 rounded-md text-center col-span-2"
+              className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none"
             />
             <label htmlFor="description" className="p-2">
               Description
@@ -91,7 +91,7 @@ const NewTask = () => {
               name="description"
               id="description"
               placeholder="Optional"
-              className="border-2 border-green-700 rounded-md text-center col-span-2"
+              className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none"
             />
             <label htmlFor="format" className="p-2">
               Include progress stage
@@ -101,12 +101,12 @@ const NewTask = () => {
               name="format"
               id="format"
               onClick={(e: any) => {
-                setIsChecked(e.target.checked);
+                setIsChecked((prev) => !prev);
                 setSelectedOption(
                   !e.target.checked ? "uncompleted" : selectedOption
                 );
               }}
-              className="col-span-2 self-center h-[40px] accent-green-700"
+              className="col-span-2 self-center h-[40px] border-[#AEF6C7] accent-green-700"
             />
             <label htmlFor="stage" className="p-2">
               Stage
@@ -114,7 +114,7 @@ const NewTask = () => {
             <select
               name="stage"
               id="stage"
-              className="border-2 border-green-700 rounded-md text-center col-span-2"
+              className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none text-[#AEF6C7]"
               value={selectedOption}
               onChange={(e) => setSelectedOption(e.target.value)}
             >
@@ -124,7 +124,7 @@ const NewTask = () => {
               </option>
               <option value="completed">Completed</option>
             </select>
-            <button className="bg-green-700 text-white rounded-md col-span-3 p-3 hover:bg-green-600 duration-300">
+            <button className="bg-green-800 rounded-md col-span-3 p-3 hover:bg-green-700 duration-300">
               Add new task
             </button>
           </form>

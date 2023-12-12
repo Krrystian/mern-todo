@@ -89,7 +89,7 @@ const EditTask = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-full md:w-2/5 xl:w-1/3 bg-white rounded-xl flex-col flex justify-center items-center p-3"
+        className="relative w-full md:w-2/5 xl:w-1/3 bg-[#294936] rounded-xl flex-col flex justify-center items-center p-3"
         onClick={(e: any) => e.stopPropagation()}
       >
         <h2 className="text-center text-3xl mb-3">Edit task</h2>
@@ -105,7 +105,7 @@ const EditTask = () => {
             name="title"
             id="title"
             defaultValue={title}
-            className="border-2 border-green-700 rounded-md text-center col-span-2"
+            className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none text-[#AEF6C7]"
           />
           <label htmlFor="description" className="p-2">
             Description
@@ -116,7 +116,7 @@ const EditTask = () => {
             id="description"
             defaultValue={description}
             placeholder="Optional"
-            className="border-2 border-green-700 rounded-md text-center col-span-2"
+            className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none text-[#AEF6C7]"
           />
           <label htmlFor="format" className="p-2">
             Include progress stage
@@ -141,7 +141,7 @@ const EditTask = () => {
           <select
             name="stage"
             id="stage"
-            className="border-2 border-green-700 rounded-md text-center col-span-2"
+            className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none text-[#AEF6C7]"
             value={selectedOption}
             onChange={(e) => setSelectedOption(e.target.value)}
           >
@@ -151,7 +151,7 @@ const EditTask = () => {
             </option>
             <option value="completed">Completed</option>
           </select>
-          <button className="bg-green-700 text-white rounded-md col-span-3 p-3 hover:bg-green-600 duration-300">
+          <button className="bg-green-800  rounded-md col-span-3 p-3 hover:bg-green-700 duration-300">
             Submit changes
           </button>
         </form>

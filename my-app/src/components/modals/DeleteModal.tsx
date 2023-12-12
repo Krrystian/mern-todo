@@ -101,7 +101,7 @@ const DeleteModal = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-full md:w-2/5 xl:w-1/3 bg-white rounded-xl flex-col flex justify-center items-center p-3"
+        className="relative w-full md:w-2/5 xl:w-1/3 bg-[#294936] rounded-xl flex-col flex justify-center items-center p-3"
         onClick={handleClose}
       >
         <h2 className="text-center text-3xl mb-3">
@@ -109,13 +109,13 @@ const DeleteModal = () => {
         </h2>
         <div className="flex gap-3 w-full justify-center">
           <button
-            className="bg-red-700 text-white rounded-md w-full p-3 hover:bg-red-600 duration-300"
+            className="bg-red-800 text-white rounded-md w-full p-3 hover:bg-red-700 duration-300"
             onClick={handleClose}
           >
             Cancel
           </button>
           <button
-            className="bg-green-700 text-white rounded-md w-full p-3 hover:bg-green-600 duration-300"
+            className="bg-green-800 text-white rounded-md w-full p-3 hover:bg-green-700 duration-300"
             onClick={handleDelete}
           >
             Delete

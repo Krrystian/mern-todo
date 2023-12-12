@@ -41,7 +41,7 @@ const TodoList = () => {
   };
   useEffect(() => {
     getTodos();
-  }, []); // Something bad when remove
+  }, []); //smth bad when remove
   const handleChange = (e: any) => {
     const filtered = titles.filter((title) => {
       return title.toLowerCase().includes(e.target.value.toLowerCase());
@@ -59,7 +59,7 @@ const TodoList = () => {
     dispatch(newTodoJoinOpen());
   };
 
-  const handleDelete = async (e: any, id: string) => {
+  const handleDelete = async (e: any, id: string, task: boolean) => {
     e.stopPropagation();
     dispatch(deleteOpen(id));
   };
@@ -129,7 +129,7 @@ const TodoList = () => {
                   size={20}
                   className="self-center cursor-pointer"
                   onClick={(e: any) => {
-                    handleDelete(e, todo._id);
+                    handleDelete(e, todo._id, false);
                   }}
                 />
               </div>
@@ -159,22 +159,22 @@ const TodoList = () => {
       ) : (
         //check and fix for no websites
         <div
-          className={`w-full h-full flex flex-col justify-center items-center border-green-700 ${
+          className={`w-full min-h-[92vh] flex flex-col justify-center items-center border-[#AEF6C7] ${
             menuBar ? "border-r-4" : "border-none"
           }`}
         >
-          <p className="text-center text-xl">You don't have any todos ;c</p>
+          <p className="text-center text-3xl">You don't have any todos</p>
           <div className="flex flex-row">
             <button
-              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
+              className="flex m-3 bg-green-800 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-700"
               onClick={handleNewTodo}
             >
               <AiOutlinePlus className="self-center" />
               Todo
             </button>
             <button
-              className="flex m-3 bg-green-700 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-600"
-              onClick={handleNewTodo}
+              className="flex m-3 bg-green-800 rounded-xl p-2 px-6 h-[40px] justify-center gap-1 transition-colors duration-300 hover:bg-green-700"
+              onClick={handleJoinTodo}
             >
               <AiOutlinePlus className="self-center" />
               Join

@@ -58,6 +58,7 @@ export const getTodoList = async (req, res) => {
 export const removeTodoList = async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(id);
     const todoList = await TodoList.findOne({ _id: id });
     if (!todoList) {
       return res.status(404).json({ message: "Todo list not found" });
@@ -79,12 +80,6 @@ export const joinTodoList = async (req, res) => {
     }
     if (todoList.password) {
       const isMatch = await bcrypt.compare(password, todoList.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: "Something went wrong" });
-      }
-    } else {
-      const passwd = "";
-      const isMatch = await bcrypt.compare(password, passwd);
       if (!isMatch) {
         return res.status(401).json({ message: "Something went wrong" });
       }

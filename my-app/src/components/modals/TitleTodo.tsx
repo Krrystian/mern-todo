@@ -58,7 +58,7 @@ const TitleTodo = () => {
       onClick={handleClose}
     >
       <div
-        className="relative w-full md:w-2/5 xl:w-1/5 bg-white rounded-xl"
+        className="relative w-full md:w-2/5 xl:w-1/5 bg-[#294936] rounded-xl"
         onClick={(e: any) => e.stopPropagation()}
       >
         <div className="w-full p-3">
@@ -75,9 +75,9 @@ const TitleTodo = () => {
               name="title"
               id="title"
               required
-              className="border-2 border-green-700 rounded-md text-center col-span-2"
+              className="border-2 border-[#AEF6C7] rounded-md text-center col-span-2 bg-[#294936] focus:outline-none"
             />
-            <button className="bg-green-700 text-white rounded-md col-span-3 p-3 hover:bg-green-600 duration-300">
+            <button className="bg-green-800  rounded-md col-span-3 p-3 hover:bg-green-700 duration-300">
               Change
             </button>
           </form>
