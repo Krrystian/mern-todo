@@ -59,9 +59,9 @@ const TodoList = () => {
     dispatch(newTodoJoinOpen());
   };
 
-  const handleDelete = async (e: any, id: string, task: boolean) => {
+  const handleDelete = async (e: any, id: string) => {
     e.stopPropagation();
-    dispatch(deleteOpen(id));
+    dispatch(deleteOpen({ id: id, task: false }));
   };
   return (
     <div
@@ -129,7 +129,7 @@ const TodoList = () => {
                   size={20}
                   className="self-center cursor-pointer"
                   onClick={(e: any) => {
-                    handleDelete(e, todo._id, false);
+                    handleDelete(e, todo._id);
                   }}
                 />
               </div>
