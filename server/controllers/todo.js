@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt";
+//import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import TodoList from "../models/Todo.js";
 import User from "../models/User.js";
 import TodoElement from "../models/TodoElement.js";
