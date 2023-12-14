@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.js";
 import userRoute from "./routes/user.js";
 import verifyToken from "./controllers/verifyToken.js";
-import todoRoute from "./routes/Todo.js";
+import todoRoute from "./routes/todo.js";
 
 dotenv.config();
 const app = express();
