@@ -14,6 +14,7 @@ import NewTask from "../components/modals/NewTask";
 import { Link } from "react-router-dom";
 import EditTask from "../components/modals/EditTask";
 import DeleteModal from "../components/modals/DeleteModal";
+import SettingsModal from "../components/modals/SettingsModal";
 const ToDo = () => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.user.token);
@@ -25,6 +26,7 @@ const ToDo = () => {
   const password = useSelector((state: any) => state.modal.password.isOpen);
   const editTask = useSelector((state: any) => state.modal.edit.isOpen);
   const deleteTask = useSelector((state: any) => state.modal.delete.isOpen);
+  const settings = useSelector((state: any) => state.modal.settings.isOpen);
   const tokenRef = useRef(token);
 
   // Update the ref when the token changes
@@ -83,9 +85,9 @@ const ToDo = () => {
     const intervalId = setInterval(fetchData, 1000 * 60 * 15);
     return () => clearInterval(intervalId);
   }, []);
-  //fix screen size
   return token ? (
     <div className="min-h-[92vh] w-screen bg-[#294936] text-[#AEF6C7]">
+      {settings && <SettingsModal />}
       {newTodo && <NewTodo />}
       {joinTodo && <JoinTodo />}
       {sharing && <SharingList />}

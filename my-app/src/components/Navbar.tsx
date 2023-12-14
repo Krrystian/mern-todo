@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../state/user";
-import { menuClose, menuOpen } from "../state/modal";
+import { menuClose, menuOpen, settingsOpen } from "../state/modal";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
@@ -15,6 +15,10 @@ const Navbar = () => {
   const [menu, isMenu] = useState<boolean>(false);
   const [hamburger, isHamburger] = useState<boolean>(false);
   const navigate = useNavigate();
+  const handleSettings = () => {
+    dispatch(settingsOpen());
+    isMenu((prev) => !prev);
+  };
   const handleLogout = async () => {
     await toast.promise(
       fetch("http://localhost:5000/logout", {
@@ -99,7 +103,10 @@ const Navbar = () => {
             >
               Logout
             </li>
-            <li className="cursor-pointer items-center flex text-xl px-4 h-full hover:bg-[#3e6259] duration-300">
+            <li
+              className="cursor-pointer items-center flex text-xl px-4 h-full hover:bg-[#3e6259] duration-300"
+              onClick={handleSettings}
+            >
               Settings
             </li>
           </ul>
@@ -111,7 +118,10 @@ const Navbar = () => {
         }  ${menu ? " z-[100]" : ""}`}
       >
         <ul className="text-xl border-2 border-[#aef6c7] w-[150px] text-center">
-          <li className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2">
+          <li
+            className="cursor-pointer px-2 hover:text-green-700 hover:bg-slate-50 duration-300 border-b-2"
+            onClick={handleSettings}
+          >
             Settings
           </li>
           <li

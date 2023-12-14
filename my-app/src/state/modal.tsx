@@ -39,6 +39,9 @@ interface CounterState {
     task: boolean;
     progressStage: string;
   };
+  settings: {
+    isOpen: boolean;
+  };
 }
 
 const initialState: CounterState = {
@@ -79,6 +82,9 @@ const initialState: CounterState = {
     id: "",
     task: false,
     progressStage: "",
+  },
+  settings: {
+    isOpen: false,
   },
 };
 
@@ -174,6 +180,14 @@ export const modelSlice = createSlice({
       state.delete.isOpen = false;
       if (state.menuBar.isOpen) document.body.style.overflow = "unset";
     },
+    settingsOpen: (state) => {
+      state.settings.isOpen = true;
+      document.body.style.overflow = "hidden";
+    },
+    settingsClose: (state) => {
+      state.settings.isOpen = false;
+      document.body.style.overflow = "unset";
+    },
   },
 });
 
@@ -198,5 +212,7 @@ export const {
   editOpen,
   deleteClose,
   deleteOpen,
+  settingsClose,
+  settingsOpen,
 } = modelSlice.actions;
 export default modelSlice.reducer;
