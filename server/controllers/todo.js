@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import TodoList from "../models/todo.js";
+import TodoList from "../models/Todo.js";
 import User from "../models/User.js";
 import TodoElement from "../models/TodoElement.js";
 export const newTodoList = async (req, res) => {
