@@ -41,7 +41,7 @@ const EditTask = () => {
     };
     await toast
       .promise(
-        fetch("http://localhost:5000/todo/updateTask", {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/updateTask`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

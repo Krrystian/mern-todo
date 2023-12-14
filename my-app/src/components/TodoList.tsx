@@ -17,17 +17,17 @@ const TodoList = () => {
   const menuBar = useSelector((state: any) => state.modal.menuBar.isOpen);
   const selected = useSelector((state: any) => state.user.selected);
   const dispatch = useDispatch();
-  //const [titles, setTitles] = useState<string[]>([]);
   const titles: string[] = [];
   const [filteredTitles, setFilteredTitles] = useState<string[]>([]);
 
   const isNotEmptyArray = (arr: any[]) => {
     return Array.isArray(arr) && arr.length > 0;
   };
+
   useEffect(() => {
     const getTodos = async () => {
       const repsonse = await fetch(
-        `http://localhost:5000/todo/getTodoList?id=${user.id}`,
+        `${process.env.REACT_APP_API_URL}/todo/getTodoList?id=${user.id}`,
         {
           method: "GET",
           headers: {

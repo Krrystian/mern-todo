@@ -16,7 +16,7 @@ const TitleTodo = () => {
     const { title } = e.target.elements;
     await toast
       .promise(
-        fetch("http://localhost:5000/todo/changeTitle", {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/changeTitle`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

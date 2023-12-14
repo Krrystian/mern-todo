@@ -15,7 +15,7 @@ const NewTodo = () => {
     const { title, password } = e.target.elements;
     await toast
       .promise(
-        fetch("http://localhost:5000/todo/newTodoList", {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/newTodoList`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

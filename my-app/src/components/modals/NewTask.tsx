@@ -17,7 +17,7 @@ const NewTask = () => {
     const { title, description, stage, format } = e.target;
     await toast
       .promise(
-        fetch("http://localhost:5000/todo/newTask", {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/newTask`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

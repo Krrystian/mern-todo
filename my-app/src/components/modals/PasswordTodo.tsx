@@ -10,7 +10,7 @@ const PasswordTodo = () => {
     e.preventDefault();
     const { password } = e.target.elements;
     await toast.promise(
-      fetch("http://localhost:5000/todo/changePassword", {
+      fetch(`${process.env.REACT_APP_API_URL}/todo/changePassword`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

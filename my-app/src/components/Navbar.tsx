@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await toast.promise(
-      fetch("http://localhost:5000/logout", {
+      fetch(`${process.env.REACT_APP_API_URL}/logout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -35,7 +35,7 @@ const Register: React.FC<RegisterProps> = ({ setLogin }) => {
     }
     await toast
       .promise(
-        fetch("http://localhost:5000/user/register", {
+        fetch(`${process.env.REACT_APP_API_URL}/user/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

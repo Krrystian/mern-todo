@@ -13,7 +13,7 @@ const TaskList = () => {
     return (
       <div className="w-full h-full flex flex-col justify-center items-center cursor-default">
         <h1 className="text-3xl">
-          Your everyday{" "}
+          Your everyday
           <span className="font-extrabold tracking-widest">TODO</span>
         </h1>
         <h2 className="text-xl mt-3 text-[#5B8266]">

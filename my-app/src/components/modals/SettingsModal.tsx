@@ -24,7 +24,7 @@ const SettingsModal = () => {
 
   const handleLogout = async () => {
     await toast.promise(
-      fetch("http://localhost:5000/logout", {
+      fetch(`${process.env.REACT_APP_API_URL}/logout`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const SettingsModal = () => {
     };
     await toast
       .promise(
-        fetch("http://localhost:5000/user/newPassword", {
+        fetch(`${process.env.REACT_APP_API_URL}/user/newPassword`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const SettingsModal = () => {
     };
     await toast
       .promise(
-        fetch("http://localhost:5000/user/newEmail", {
+        fetch(`${process.env.REACT_APP_API_URL}/user/newEmail`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -144,7 +144,7 @@ const SettingsModal = () => {
     };
     await toast
       .promise(
-        fetch("http://localhost:5000/user/newUsername", {
+        fetch(`${process.env.REACT_APP_API_URL}/user/newUsername`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -16,7 +16,7 @@ const JoinTodo = () => {
 
     await toast
       .promise(
-        fetch("http://localhost:5000/todo/joinTodoList", {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/joinTodoList`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

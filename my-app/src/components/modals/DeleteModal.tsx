@@ -63,7 +63,7 @@ const DeleteModal = () => {
     } else {
       await toast
         .promise(
-          fetch("http://localhost:5000/todo/removeTask", {
+          fetch(`${process.env.REACT_APP_API_URL}/todo/removeTask`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

@@ -21,7 +21,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
     const { email, password } = e.target.elements;
     await toast
       .promise(
-        fetch("http://localhost:5000/login", {
+        fetch(`${process.env.REACT_APP_API_URL}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
