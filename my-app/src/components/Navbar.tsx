@@ -15,10 +15,7 @@ const Navbar = () => {
   const [menu, isMenu] = useState<boolean>(false);
   const [hamburger, isHamburger] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleSettings = () => {
-    dispatch(settingsOpen());
-    isMenu((prev) => !prev);
-  };
+
   const handleLogout = async () => {
     await toast.promise(
       fetch("http://localhost:5000/logout", {
@@ -51,6 +48,11 @@ const Navbar = () => {
         theme: "light",
       }
     );
+  };
+
+  const handleSettings = () => {
+    dispatch(settingsOpen());
+    isMenu((prev) => !prev);
   };
 
   useEffect(() => {

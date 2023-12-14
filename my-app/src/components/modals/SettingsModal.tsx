@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { settingsClose } from "../../state/modal";
 import { AiOutlineClose } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../../state/user";
 
 enum Settings {
   Main,
@@ -14,12 +17,165 @@ const SettingsModal = () => {
   const [level, setLevel] = useState<Settings>(Settings.Main);
   const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleClose = (e: any) => {
     dispatch(settingsClose());
   };
-  const handleChangePassword = (e: any) => {};
-  const handleChangeEmail = (e: any) => {};
-  const handleChangeUsername = (e: any) => {};
+
+  const handleLogout = async () => {
+    await toast.promise(
+      fetch("http://localhost:5000/logout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        credentials: "include",
+      }).then(async (response) => {
+        if (!response.ok) {
+          return Promise.reject("Something went wrong!");
+        }
+        navigate("/");
+        dispatch(setCredentials({ token: "", email: "", username: "" }));
+      }),
+      {
+        pending: "Logging out...",
+        success: "Logged out successfully!",
+        error: "Something went wrong!",
+      },
+      {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
+  const handleChangePassword = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      id: user.id,
+      oldPassword: e.currentTarget.elements.oldPassword.value,
+      newPassword: e.currentTarget.elements.newPassword.value,
+    };
+    await toast
+      .promise(
+        fetch("http://localhost:5000/user/newPassword", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(data),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          dispatch(settingsClose());
+          handleLogout();
+        }),
+        {
+          pending: "Changing password...",
+          success: "Password changed. Logging out...",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch((err) => {});
+  };
+  const handleChangeEmail = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      id: user.id,
+      email: e.currentTarget.elements.email.value,
+    };
+    await toast
+      .promise(
+        fetch("http://localhost:5000/user/newEmail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(data),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          dispatch(settingsClose());
+          handleLogout();
+        }),
+        {
+          pending: "Changing email...",
+          success: "Email changed. Logging out...",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch((err) => {});
+  };
+  const handleChangeUsername = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      id: user.id,
+      username: e.currentTarget.elements.username.value,
+    };
+    await toast
+      .promise(
+        fetch("http://localhost:5000/user/newUsername", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(data),
+        }).then(async (response) => {
+          if (!response.ok) {
+            return Promise.reject("Something went wrong");
+          }
+          dispatch(settingsClose());
+          handleLogout();
+        }),
+        {
+          pending: "Changing username...",
+          success: "Username changed. Logging out...",
+          error: "Something went wrong",
+        },
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      )
+      .catch((err) => {});
+  };
   const handleCancel = (e: any) => {
     setLevel((prev) => (prev = Settings.Main));
   };
@@ -74,7 +230,7 @@ const SettingsModal = () => {
             </h2>
             <form
               className="grid grid-cols-3 gap-4 w-full justify-center"
-              onClick={handleChangePassword}
+              onSubmit={handleChangePassword}
             >
               <label htmlFor="oldPassword" className="p-2">
                 Old Password
@@ -117,7 +273,7 @@ const SettingsModal = () => {
             </h2>
             <form
               className="grid grid-cols-3 gap-4 w-full justify-center"
-              onClick={handleChangeEmail}
+              onSubmit={handleChangeEmail}
             >
               <label htmlFor="email" className="p-2">
                 New Email
@@ -150,7 +306,7 @@ const SettingsModal = () => {
             </h2>
             <form
               className="grid grid-cols-3 gap-4 w-full justify-center"
-              onClick={handleChangeUsername}
+              onSubmit={handleChangeUsername}
             >
               <label htmlFor="username" className="p-2">
                 New Username

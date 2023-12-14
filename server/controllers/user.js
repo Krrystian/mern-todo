@@ -34,6 +34,7 @@ export const newEmail = async (req, res) => {
     }
     user.email = email;
     await user.save();
+    res.status(200).json({ message: "Email updated successfully." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -47,11 +48,12 @@ export const newPassword = async (req, res) => {
     }
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
-      return res.status(403).send({ message: "Incorrect password." });
+      return res.status(403).send({ message: "Something went wrong." });
     }
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
     await user.save();
+    res.status(200).json({ message: "Updated successfully." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -68,6 +70,7 @@ export const newUsername = async (req, res) => {
     }
     user.userName = username;
     await user.save();
+    res.status(200).json({ message: "Updated successfully." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
