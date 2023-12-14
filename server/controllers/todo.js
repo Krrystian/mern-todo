@@ -130,7 +130,7 @@ export const changePassword = async (req, res) => {
     let { id, password } = req.body;
     const todoList = await TodoList.findById(id);
     if (!todoList) {
-      return res.status(404).json({ message: "NotFound" });
+      return res.status(404).json({ message: "Not Found" });
     }
     if (!password) {
       password = "";

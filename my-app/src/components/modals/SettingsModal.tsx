@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { settingsClose } from "../../state/modal";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -12,6 +12,7 @@ enum Settings {
 
 const SettingsModal = () => {
   const [level, setLevel] = useState<Settings>(Settings.Main);
+  const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   const handleClose = (e: any) => {
     dispatch(settingsClose());
