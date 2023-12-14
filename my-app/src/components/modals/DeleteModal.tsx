@@ -14,10 +14,7 @@ const DeleteModal = () => {
   const progressStage = useSelector(
     (state: any) => state.modal.delete.progressStage
   );
-
-  //TODO
   const selected = useSelector((state: any) => state.user.selected);
-
   const handleClose = () => {
     dispatch(deleteClose());
   };
@@ -26,7 +23,7 @@ const DeleteModal = () => {
     if (!task) {
       await toast
         .promise(
-          fetch("http://localhost:5000/todo/removeTodoList", {
+          fetch(`${process.env.REACT_APP_API_URL}/todo/removeTodoList`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
