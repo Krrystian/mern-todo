@@ -75,7 +75,10 @@ export const removeTodoList = async (req, res) => {
 export const joinTodoList = async (req, res) => {
   try {
     const { id, code, password } = req.body;
-    const todoList = await TodoList.findById(code);
+    const todoList = await TodoList.findById(code)
+      .populate("inProgress", "-__v -createdAt -updatedAt")
+      .populate("uncompleted", "-__v -createdAt -updatedAt")
+      .populate("completed", "-__v -createdAt -updatedAt");
     if (!todoList) {
       return res.status(404).json({ message: "Something went wrong" });
     }
