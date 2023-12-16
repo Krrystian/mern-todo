@@ -49,12 +49,6 @@ const TodoList = () => {
     getTodos();
   }, [dispatch, token, user.id]);
 
-  useEffect(() => {
-    if (todos.length === 0) {
-      dispatch(setTodo(""));
-    }
-  }, []);
-
   const handleClick = () => {
     let inputValue = inputRef.current?.value;
     if (!inputValue) {
