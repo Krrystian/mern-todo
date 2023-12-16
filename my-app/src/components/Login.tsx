@@ -71,7 +71,7 @@ const Login: React.FC<LoginProps> = ({ setRegister }) => {
         <Input name="email" type="email" label="Email" required />
         <Input type="password" name="password" label="Password" required />
         <div className="flex justify-between px-3">
-          <p className="text-md cursor-default">Don't remember a password?</p>
+          <p className="text-md cursor-default">Create new account</p>
           <p
             className="underline cursor-pointer hover:text-green-800"
             onClick={handleRegister}
