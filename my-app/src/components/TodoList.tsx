@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import {
   deleteOpen,
@@ -7,9 +7,11 @@ import {
   newTodoJoinOpen,
   newTodoOpen,
 } from "../state/modal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { setSelected, setTodo, setTodos } from "../state/user";
-
+const isNotEmptyArray = (arr: any[]) => {
+  return Array.isArray(arr) && arr.length > 0;
+};
 const TodoList = () => {
   const todos = useSelector((state: any) => state.user.todoList);
   const token = useSelector((state: any) => state.user.token);
@@ -18,39 +20,59 @@ const TodoList = () => {
   const selected = useSelector((state: any) => state.user.selected);
   const dispatch = useDispatch();
   const titles: string[] = [];
-  const [filteredTitles, setFilteredTitles] = useState<string[]>([]);
-
-  const isNotEmptyArray = (arr: any[]) => {
-    return Array.isArray(arr) && arr.length > 0;
-  };
+  let [filteredTitles, setFilteredTitles] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const getTodos = async () => {
-      const repsonse = await fetch(
-        `${process.env.REACT_APP_API_URL}/todo/getTodoList?id=${user.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      try {
+        const repsonse = await fetch(
+          `${process.env.REACT_APP_API_URL}/todo/getTodoList?id=${user.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (repsonse.ok) {
+          const data = await repsonse.json();
+          dispatch(setTodos(data));
+          dispatch(newTodoClose());
         }
-      );
-      if (repsonse.ok) {
-        const data = await repsonse.json();
-        dispatch(setTodos(data));
-        dispatch(newTodoClose());
+      } catch (error) {
+        console.error("Error fetching todos:", error);
       }
     };
 
     getTodos();
   }, [dispatch, token, user.id]);
-  const handleChange = (e: any) => {
+
+  useEffect(() => {
+    if (todos.length === 0) {
+      dispatch(setTodo(""));
+    }
+  }, []);
+
+  const handleClick = () => {
+    let inputValue = inputRef.current?.value;
+    if (!inputValue) {
+      setFilteredTitles([]);
+      return;
+    }
     const filtered = titles.filter((title) => {
-      return title.toLowerCase().includes(e.target.value.toLowerCase());
+      return title.toLowerCase().includes(inputValue!.toLowerCase());
     });
     setFilteredTitles(filtered);
   };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleClick();
+    }
+  };
+
   const handleSelect = (todo: any) => {
     dispatch(setSelected(todo._id));
     dispatch(setTodo(todo));
@@ -73,14 +95,20 @@ const TodoList = () => {
       }`}
     >
       <div
-        className={`w-full flex justify-center h-[82px] border-[#aef6c7] ${
+        className={`relative w-full flex justify-center h-[82px] border-[#aef6c7] ${
           menuBar ? "border-r-4" : ""
         }`}
       >
         <input
           className="w-full h-full placeholder:font-bold font-bold text-2xl placeholder:text-[#aef6c7] bg-[#233d2d] placeholder:text-center placeholder:text-2xl text-center focus:outline-none focus:placeholder-[#233d2d]"
           placeholder="Your todos"
-          onChange={handleChange}
+          ref={inputRef}
+          onKeyDown={(e) => handleKeyPress(e)}
+        />
+        <AiOutlineSearch
+          className="absolute h-full right-1 cursor-pointer"
+          size={25}
+          onClick={() => handleClick()}
         />
       </div>
       {isNotEmptyArray(todos) ? (
@@ -160,7 +188,6 @@ const TodoList = () => {
           </div>
         </div>
       ) : (
-        //check and fix for no websites
         <div
           className={`w-full min-h-[92vh] flex flex-col justify-center items-center border-[#AEF6C7] ${
             menuBar ? "border-r-4" : "border-none"

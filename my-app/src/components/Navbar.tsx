@@ -76,7 +76,7 @@ const Navbar = () => {
           {todoName}
         </div>
       )}
-      <h1 className="hidden lg:flex text-3xl tracking-widest font-extrabold">
+      <h1 className="hidden lg:flex text-3xl tracking-widest font-extrabold cursor-default select-none">
         TODO
       </h1>
       <div
