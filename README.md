@@ -15,8 +15,7 @@ This project is using React for frontend application. React provides great ways 
 NodeJS is a very popular server-side client. It is decent in terms of reliability, scaling and safety with their constant updates, but the real power is community contributing and making it feel better. It is also developer friendly with a mild learning curve. Project is based on MongoDB Atlas servers - non-relational database model. It storage everthing inside a JSON files which simplifies access and response time comparing to relational databases. ExpressJS with Mongoose provides great interface for connecting server-side with database. For keeping user information save, todo applicaiton is using cookie token-passing idea with 15 minutes sessions. Cookies has cross-site policy to prevent XSS and CSRF (soon) attacks.
 ## What is still building...
 This project is still under construction. It is missing key features and has several design errors still waiting for fixes.
-- Website still needs testing - It will be my main focus during this project to learn how to prepare React testing with JEST library.
-- UX/IU - I am not happy on the way the website looks now. I think more styling, different color sets will make it look better but for now it is working and design is not my main focus
+- UX/IU - I am not happy on the way the website looks now. I think more styling, different color sets will make it look better but for now it is working and design is not my main focus **BETTER**
 - Task compatibility - It is missing some tasks requests - I will take care of it sooner than later. I want the website to be available. **DONE**
 - ESLint warnings - I will take care of them sooner or later. **DONE**
 - GITHUB ReadMe - I will make updates here on progress.
