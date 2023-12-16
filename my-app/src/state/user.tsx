@@ -136,6 +136,12 @@ export const userSlice = createSlice({
         ...state.todo[action.payload.progressStage],
         updatedTask,
       ];
+      state.todoList = state.todoList.map((todo) => {
+        if (todo._id === state.todo._id) {
+          todo = state.todo;
+        }
+        return todo;
+      });
     },
   },
 });

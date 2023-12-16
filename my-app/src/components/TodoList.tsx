@@ -106,7 +106,7 @@ const TodoList = () => {
         />
       </div>
       {isNotEmptyArray(todos) ? (
-        <div className="w-full h-full flex flex-col">
+        <div className="w-full h-full flex flex-col z-10">
           {todos.map((todo: any) => {
             const isSelected = selected === todo._id;
             if (

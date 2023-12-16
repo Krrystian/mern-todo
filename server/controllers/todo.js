@@ -210,8 +210,6 @@ export const updateTask = async (req, res) => {
     }
     if (currentStage !== stage) {
       const index = todoList[currentStage].indexOf(id);
-      console.log(todoList[currentStage]);
-      console.log(todoList[currentStage].splice(index, 1));
       todoList[currentStage].splice(index, 1);
       todoList[stage].push(id);
       await todoList.save();
