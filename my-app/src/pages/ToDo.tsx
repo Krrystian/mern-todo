@@ -37,7 +37,7 @@ const ToDo = () => {
   const refreshAndDispatchToken = useCallback(
     async (header: any) => {
       try {
-        const res = await fetch("http://localhost:5000/refresh", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/refresh`, {
           method: "GET",
           headers: header,
           credentials: "include",
@@ -62,7 +62,7 @@ const ToDo = () => {
       Authorization: `Bearer ${tokenRef.current}`,
     };
     try {
-      const response = await fetch("http://localhost:5000/verify", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/verify`, {
         method: "POST",
         headers: header,
       });
