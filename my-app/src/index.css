@@ -6,12 +6,31 @@ html {
     background-color: #294936;
     overflow-x: hidden;
 }
-*::-webkit-scrollbar{
-    width: 5px;
-  }
-*::-webkit-scrollbar-track{
-      background: transparent;
-  }
-*::-webkit-scrollbar-thumb{
-      background: #5b8266;
-  }
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #5b8266;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #5b8266 transparent;
+}
+
+*::-moz-scrollbar {
+  width: 5px;
+}
+
+*::-moz-scrollbar-track {
+  background: transparent;
+}
+
+*::-moz-scrollbar-thumb {
+  background: #5b8266;
+}
