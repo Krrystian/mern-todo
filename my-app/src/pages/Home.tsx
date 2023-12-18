@@ -33,6 +33,7 @@ const Home = () => {
         <h1 className="font-bold">Demo accounts:</h1>
         <p>Login: visit@visit.com Password: visit</p>
         <p>Login: visit2@visit.com Password: visit2</p>
+        <h1 className="font-bold">ENABLE 3rd PARTY COOKIES</h1>
       </div>
     </section>
   );
