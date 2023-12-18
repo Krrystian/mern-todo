@@ -21,4 +21,4 @@ This project is still under construction. It is missing key features and has sev
 - GITHUB ReadMe - I will make updates here on progress.
 ## Troubleshooting
 #### After login in I get unauthorized... 
-- Disable 3rd part cookies since frontend and backend are operating on two different sites.
+- Enable 3rd party cookies since frontend and backend are operating on two different websites.
