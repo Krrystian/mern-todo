@@ -1,4 +1,3 @@
-//import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
@@ -41,7 +40,7 @@ export const login = async (req, res) => {
   );
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    sameSite: "none",
+    sameSite: "true",
     secure: true, // for safari false!!
     maxAge: 7 * 24 * 60 * 60 * 1000,
     path: "/",
