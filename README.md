@@ -19,3 +19,6 @@ This project is still under construction. It is missing key features and has sev
 - Task compatibility - It is missing some tasks requests - I will take care of it sooner than later. I want the website to be available. **DONE**
 - ESLint warnings - I will take care of them sooner or later. **DONE**
 - GITHUB ReadMe - I will make updates here on progress.
+## Troubleshooting
+#### After login in I get unauthorized... 
+- Disable 3rd part cookies since frontend and backend are operating on two different sites.
